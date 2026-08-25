@@ -1,0 +1,8 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build & Logs
+*.log
+.system_generated/
+apply-seyon-branding-and-dummy-names.js
