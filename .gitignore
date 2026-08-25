@@ -2,7 +2,9 @@
 node_modules/
 package-lock.json
 
-# Build & Logs
+# Local Development Scripts
+local-server.js
+server.js
+test-live-vercel.js
 *.log
 .system_generated/
-apply-seyon-branding-and-dummy-names.js
