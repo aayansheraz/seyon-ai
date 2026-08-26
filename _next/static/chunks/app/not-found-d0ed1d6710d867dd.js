@@ -37,7 +37,7 @@
           font-weight: 800;
           line-height: 0.9;
           letter-spacing: -0.05em;
-          color: #5EA3E1;
+          color: #0284C7;
           margin: 0 0 1rem;
         }
 

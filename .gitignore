@@ -8,3 +8,4 @@ server.js
 test-live-vercel.js
 *.log
 .system_generated/
+_backup_pre_theme_swap/
