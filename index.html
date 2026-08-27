@@ -2041,16 +2041,57 @@
 
     if (!video || !heroSection || !approachSection) return;
 
-    // === 1. Continuous Video Background Pinning ===
-    // Pin the video container so it remains fixed in the background across both Hero & Approach
+    // === 1. Continuous Fixed Video Background across Hero & Approach ===
     if (videoContainer) {
+      videoContainer.style.setProperty('position', 'fixed', 'important');
+      videoContainer.style.setProperty('top', '0', 'important');
+      videoContainer.style.setProperty('left', '0', 'important');
+      videoContainer.style.setProperty('width', '100%', 'important');
+      videoContainer.style.setProperty('height', '100vh', 'important');
+      videoContainer.style.setProperty('z-index', '0', 'important');
+      videoContainer.style.setProperty('pointer-events', 'none', 'important');
+      videoContainer.style.setProperty('overflow', 'hidden', 'important');
+    }
+
+    // Ensure parents are transparent so the video is 100% visible
+    document.querySelectorAll('main').forEach(function(m) {
+      m.style.setProperty('background', 'transparent', 'important');
+      m.style.setProperty('background-color', 'transparent', 'important');
+    });
+    if (heroSection) {
+      heroSection.style.setProperty('background', 'transparent', 'important');
+      heroSection.style.setProperty('background-color', 'transparent', 'important');
+      heroSection.style.setProperty('overflow', 'visible', 'important');
+    }
+    if (approachSection) {
+      approachSection.style.setProperty('background', 'transparent', 'important');
+      approachSection.style.setProperty('background-color', 'transparent', 'important');
+      approachSection.style.setProperty('position', 'relative', 'important');
+      approachSection.style.setProperty('z-index', '2', 'important');
+    }
+    if (servicesSection) {
+      servicesSection.style.setProperty('background', '#ffffff', 'important');
+      servicesSection.style.setProperty('background-color', '#ffffff', 'important');
+      servicesSection.style.setProperty('position', 'relative', 'important');
+      servicesSection.style.setProperty('z-index', '10', 'important');
+    }
+
+    // Fade out video when scrolling past Approach section so Services gets solid white
+    if (videoContainer && approachSection) {
       ScrollTrigger.create({
-        trigger: heroSection,
-        endTrigger: approachSection,
-        start: 'top top',
+        trigger: approachSection,
+        start: 'bottom center',
         end: 'bottom top',
-        pin: videoContainer,
-        pinSpacing: false
+        scrub: true,
+        onUpdate: function(self) {
+          videoContainer.style.opacity = String(1 - self.progress);
+        },
+        onLeave: function() {
+          videoContainer.style.opacity = '0';
+        },
+        onEnterBack: function() {
+          videoContainer.style.opacity = '1';
+        }
       });
     }
 
@@ -2144,8 +2185,9 @@
         scrollTrigger: {
           trigger: approachSection,
           start: 'top top',
-          end: '+=1800',
+          end: '+=2000',
           pin: true,
+          pinSpacing: true,
           scrub: 0.8,
           anticipatePin: 1
         }
