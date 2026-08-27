@@ -2095,31 +2095,38 @@
       });
     }
 
-    // === 2. Video Autoplay (5s) & 60fps LERP Scrub (5s -> 30s) ===
+    // === 2. Video Autoplay (5s) & 60fps Scrub (5s -> 30s) ===
     var isAutoplayActive = true;
     var targetVideoTime = 0;
     var currentVideoTime = 0;
     var AUTOPLAY_END = 5.0;
     var VIDEO_TOTAL = 30.0;
+    var isSeeking = false;
 
     video.muted = true;
     video.playsInline = true;
     video.removeAttribute('loop');
 
-    function startAutoplay() {
-      video.play().catch(function() {
-        var onInteract = function() {
-          if (isAutoplayActive) video.play();
-          window.removeEventListener('click', onInteract);
-          window.removeEventListener('touchstart', onInteract);
-          window.removeEventListener('scroll', onInteract);
-        };
-        window.addEventListener('click', onInteract, { once: true, passive: true });
-        window.addEventListener('touchstart', onInteract, { once: true, passive: true });
-        window.addEventListener('scroll', onInteract, { once: true, passive: true });
-      });
+    video.addEventListener('seeking', function() { isSeeking = true; });
+    video.addEventListener('seeked', function() { isSeeking = false; });
+
+    function triggerPlay() {
+      var p = video.play();
+      if (p && p.catch) {
+        p.catch(function() {
+          var resume = function() {
+            video.play();
+            window.removeEventListener('pointerdown', resume);
+            window.removeEventListener('scroll', resume);
+            window.removeEventListener('keydown', resume);
+          };
+          window.addEventListener('pointerdown', resume, { once: true, passive: true });
+          window.addEventListener('scroll', resume, { once: true, passive: true });
+          window.addEventListener('keydown', resume, { once: true, passive: true });
+        });
+      }
     }
-    startAutoplay();
+    triggerPlay();
 
     function checkAutoplay() {
       if (!isAutoplayActive) return;
@@ -2134,23 +2141,24 @@
     }
     requestAnimationFrame(checkAutoplay);
 
-    function lerpLoop() {
-      if (!isAutoplayActive && video.readyState >= 2) {
-        currentVideoTime += (targetVideoTime - currentVideoTime) * 0.12;
-        if (Math.abs(video.currentTime - currentVideoTime) > 0.03) {
+    function scrubLoop() {
+      if (!isAutoplayActive && video && video.readyState >= 1) {
+        currentVideoTime += (targetVideoTime - currentVideoTime) * 0.15;
+        if (!isSeeking && Math.abs(video.currentTime - currentVideoTime) > 0.04) {
           video.currentTime = Math.max(0, Math.min(VIDEO_TOTAL - 0.2, currentVideoTime));
         }
       }
-      requestAnimationFrame(lerpLoop);
+      requestAnimationFrame(scrubLoop);
     }
-    requestAnimationFrame(lerpLoop);
+    requestAnimationFrame(scrubLoop);
 
     // Map scroll across Hero + Approach to video scrub time (5s -> 29.5s)
     ScrollTrigger.create({
+      id: 'videoMasterScrub',
       trigger: heroSection,
       endTrigger: approachSection,
       start: 'top top',
-      end: 'bottom top',
+      end: 'bottom bottom',
       scrub: 0.5,
       onUpdate: function(self) {
         if (isAutoplayActive) {
@@ -2161,18 +2169,20 @@
       }
     });
 
-    // === 3. Hero Content Fade-out on Scroll ===
-    if (heroContent) {
+    // === 3. Hero Content Fade-In-Place on Scroll (Pinned, No Upward Movement) ===
+    if (heroContent && heroSection) {
       gsap.to(heroContent, {
         scrollTrigger: {
+          id: 'heroPinFade',
           trigger: heroSection,
           start: 'top top',
-          end: '70% top',
+          end: '+=700',
+          pin: true,
+          pinSpacing: true,
           scrub: 0.5
         },
-        opacity: 0,
-        y: -40,
-        ease: 'power2.inOut'
+        autoAlpha: 0,
+        ease: 'power1.inOut'
       });
     }
 
@@ -2183,6 +2193,7 @@
 
       var approachTL = gsap.timeline({
         scrollTrigger: {
+          id: 'approachPinTimeline',
           trigger: approachSection,
           start: 'top top',
           end: '+=2000',
