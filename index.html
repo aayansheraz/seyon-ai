@@ -122,7 +122,7 @@
             margin: 0 auto 2.5rem !important;
           }
           .hero_ctas_el {
-            display: none !important;
+            display: flex !important;
             gap: 1.2rem !important;
             justify-content: center !important;
             flex-wrap: wrap !important;
@@ -1522,9 +1522,14 @@
     }
   }
 
-  /* 7. Hero Section High Contrast & Complete Visibility */
+  /* 7. Hero Section & Approach Continuous Video Background */
   .hero_section_el {
-    background-color: #ffffff !important;
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+  .Approach_approach__kHR9Y {
+    background-color: transparent !important;
+    background: transparent !important;
   }
   .hero_heading_el {
     color: #000000 !important;
@@ -2000,37 +2005,185 @@
     }
     ensureProcessVideo();
 
-    function ensureHeroVideo() {
-    function playVid() {
-      var v = document.getElementById('hero-bg-video') || document.querySelector('.hero_section_el video');
-      if (v) {
-        v.muted = true;
-        v.defaultMuted = true;
-        v.playsInline = true;
-        var p = v.play();
-        if (p && p.catch) {
-          p.catch(function() {
-            var playOnce = function() {
-              v.play();
-              window.removeEventListener('click', playOnce);
-              window.removeEventListener('touchstart', playOnce);
-              window.removeEventListener('scroll', playOnce);
-            };
-            window.addEventListener('click', playOnce, { once: true });
-            window.addEventListener('touchstart', playOnce, { once: true });
-            window.addEventListener('scroll', playOnce, { once: true });
-          });
-        }
+    // Hero video scrub and choreography managed by hero-scrub-story-script
+  })();
+})();
+</script>
+
+<script id="hero-scrub-story-script">
+/**
+ * Cinematic Hero & Approach Video Narrative
+ * - Autoplays video for 5s, then pauses at 5s.
+ * - Scrubs video smoothly (5s -> 30s) across Hero and Approach sections.
+ * - Hero content fades out smoothly as user scrolls past Hero.
+ * - Approach section pins and reveals cards 1 by 1 sequentially.
+ * - Unpins smoothly into Services with zero layout distortion.
+ */
+(function() {
+  'use strict';
+
+  function initStory() {
+    if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+      setTimeout(initStory, 80);
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    var video = document.getElementById('hero-bg-video');
+    var videoContainer = document.querySelector('.hero_video_bg_container');
+    var heroSection = document.querySelector('.hero_section_el');
+    var heroContent = document.querySelector('.hero_container');
+    var approachSection = document.querySelector('.Approach_approach__kHR9Y');
+    var approachHeading = document.querySelector('.Approach_headingRow__9igcA');
+    var approachCards = document.querySelectorAll('.Approach_items__GC3G1 > span');
+    var servicesSection = document.querySelector('.Services_services__YnZAs');
+
+    if (!video || !heroSection || !approachSection) return;
+
+    // === 1. Continuous Video Background Pinning ===
+    // Pin the video container so it remains fixed in the background across both Hero & Approach
+    if (videoContainer) {
+      ScrollTrigger.create({
+        trigger: heroSection,
+        endTrigger: approachSection,
+        start: 'top top',
+        end: 'bottom top',
+        pin: videoContainer,
+        pinSpacing: false
+      });
+    }
+
+    // === 2. Video Autoplay (5s) & 60fps LERP Scrub (5s -> 30s) ===
+    var isAutoplayActive = true;
+    var targetVideoTime = 0;
+    var currentVideoTime = 0;
+    var AUTOPLAY_END = 5.0;
+    var VIDEO_TOTAL = 30.0;
+
+    video.muted = true;
+    video.playsInline = true;
+    video.removeAttribute('loop');
+
+    function startAutoplay() {
+      video.play().catch(function() {
+        var onInteract = function() {
+          if (isAutoplayActive) video.play();
+          window.removeEventListener('click', onInteract);
+          window.removeEventListener('touchstart', onInteract);
+          window.removeEventListener('scroll', onInteract);
+        };
+        window.addEventListener('click', onInteract, { once: true, passive: true });
+        window.addEventListener('touchstart', onInteract, { once: true, passive: true });
+        window.addEventListener('scroll', onInteract, { once: true, passive: true });
+      });
+    }
+    startAutoplay();
+
+    function checkAutoplay() {
+      if (!isAutoplayActive) return;
+      if (video.currentTime >= AUTOPLAY_END) {
+        video.pause();
+        isAutoplayActive = false;
+        targetVideoTime = AUTOPLAY_END;
+        currentVideoTime = AUTOPLAY_END;
+      } else {
+        requestAnimationFrame(checkAutoplay);
       }
     }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', playVid);
-    } else {
-      playVid();
+    requestAnimationFrame(checkAutoplay);
+
+    function lerpLoop() {
+      if (!isAutoplayActive && video.readyState >= 2) {
+        currentVideoTime += (targetVideoTime - currentVideoTime) * 0.12;
+        if (Math.abs(video.currentTime - currentVideoTime) > 0.03) {
+          video.currentTime = Math.max(0, Math.min(VIDEO_TOTAL - 0.2, currentVideoTime));
+        }
+      }
+      requestAnimationFrame(lerpLoop);
     }
-    setTimeout(playVid, 100);
-    setTimeout(playVid, 500);
-  })();
+    requestAnimationFrame(lerpLoop);
+
+    // Map scroll across Hero + Approach to video scrub time (5s -> 29.5s)
+    ScrollTrigger.create({
+      trigger: heroSection,
+      endTrigger: approachSection,
+      start: 'top top',
+      end: 'bottom top',
+      scrub: 0.5,
+      onUpdate: function(self) {
+        if (isAutoplayActive) {
+          isAutoplayActive = false;
+          video.pause();
+        }
+        targetVideoTime = AUTOPLAY_END + self.progress * (VIDEO_TOTAL - AUTOPLAY_END - 0.5);
+      }
+    });
+
+    // === 3. Hero Content Fade-out on Scroll ===
+    if (heroContent) {
+      gsap.to(heroContent, {
+        scrollTrigger: {
+          trigger: heroSection,
+          start: 'top top',
+          end: '70% top',
+          scrub: 0.5
+        },
+        opacity: 0,
+        y: -40,
+        ease: 'power2.inOut'
+      });
+    }
+
+    // === 4. Approach Section Pinned Sequential Card Reveal ===
+    if (approachCards && approachCards.length > 0) {
+      // Set initial states for cards
+      gsap.set(approachCards, { opacity: 0, y: 40 });
+
+      var approachTL = gsap.timeline({
+        scrollTrigger: {
+          trigger: approachSection,
+          start: 'top top',
+          end: '+=1800',
+          pin: true,
+          scrub: 0.8,
+          anticipatePin: 1
+        }
+      });
+
+      if (approachHeading) {
+        approachTL.fromTo(approachHeading,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.2, ease: 'power3.out' },
+          0.05
+        );
+      }
+
+      // Animate Card 1
+      if (approachCards[0]) {
+        approachTL.to(approachCards[0], { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0.2);
+      }
+      // Animate Card 2
+      if (approachCards[1]) {
+        approachTL.to(approachCards[1], { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0.45);
+      }
+      // Animate Card 3
+      if (approachCards[2]) {
+        approachTL.to(approachCards[2], { opacity: 1, y: 0, duration: 0.25, ease: 'power3.out' }, 0.7);
+      }
+
+      approachTL.to({}, { duration: 0.15 }); // small hold at the end
+    }
+
+    ScrollTrigger.sort();
+    ScrollTrigger.refresh();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(initStory, 80); });
+  } else {
+    setTimeout(initStory, 80);
+  }
 })();
 </script>
 
