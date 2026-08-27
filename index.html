@@ -2095,79 +2095,30 @@
       });
     }
 
-    // === 2. Video Autoplay (5s) & 60fps Scrub (5s -> 30s) ===
-    var isAutoplayActive = true;
-    var targetVideoTime = 0;
-    var currentVideoTime = 0;
-    var AUTOPLAY_END = 5.0;
-    var VIDEO_TOTAL = 30.0;
-    var isSeeking = false;
-
+    // === 2. Video Continuous Live Playback & Looping All The Time ===
     video.muted = true;
     video.playsInline = true;
-    video.removeAttribute('loop');
+    video.loop = true;
+    video.setAttribute('loop', '');
 
-    video.addEventListener('seeking', function() { isSeeking = true; });
-    video.addEventListener('seeked', function() { isSeeking = false; });
-
-    function triggerPlay() {
+    function playVideoAllTheTime() {
       var p = video.play();
       if (p && p.catch) {
         p.catch(function() {
           var resume = function() {
             video.play();
             window.removeEventListener('pointerdown', resume);
+            window.removeEventListener('touchstart', resume);
             window.removeEventListener('scroll', resume);
-            window.removeEventListener('keydown', resume);
           };
           window.addEventListener('pointerdown', resume, { once: true, passive: true });
+          window.addEventListener('touchstart', resume, { once: true, passive: true });
           window.addEventListener('scroll', resume, { once: true, passive: true });
-          window.addEventListener('keydown', resume, { once: true, passive: true });
         });
       }
     }
-    triggerPlay();
-
-    function checkAutoplay() {
-      if (!isAutoplayActive) return;
-      if (video.currentTime >= AUTOPLAY_END) {
-        video.pause();
-        isAutoplayActive = false;
-        targetVideoTime = AUTOPLAY_END;
-        currentVideoTime = AUTOPLAY_END;
-      } else {
-        requestAnimationFrame(checkAutoplay);
-      }
-    }
-    requestAnimationFrame(checkAutoplay);
-
-    function scrubLoop() {
-      if (!isAutoplayActive && video && video.readyState >= 1) {
-        currentVideoTime += (targetVideoTime - currentVideoTime) * 0.15;
-        if (!isSeeking && Math.abs(video.currentTime - currentVideoTime) > 0.04) {
-          video.currentTime = Math.max(0, Math.min(VIDEO_TOTAL - 0.2, currentVideoTime));
-        }
-      }
-      requestAnimationFrame(scrubLoop);
-    }
-    requestAnimationFrame(scrubLoop);
-
-    // Map scroll across Hero + Approach to video scrub time (5s -> 29.5s)
-    ScrollTrigger.create({
-      id: 'videoMasterScrub',
-      trigger: heroSection,
-      endTrigger: approachSection,
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: 0.5,
-      onUpdate: function(self) {
-        if (isAutoplayActive) {
-          isAutoplayActive = false;
-          video.pause();
-        }
-        targetVideoTime = AUTOPLAY_END + self.progress * (VIDEO_TOTAL - AUTOPLAY_END - 0.5);
-      }
-    });
+    playVideoAllTheTime();
+    video.addEventListener('ended', function() { video.currentTime = 0; video.play(); });
 
     // === 3. Hero Content Fade on Scroll (Smooth Natural Transition) ===
     if (heroContent && heroSection) {
