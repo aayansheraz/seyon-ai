@@ -1775,7 +1775,7 @@
       .to({}, { duration: 0.6 });
   }
 
-  // 6. Luxury Apple-Grade Pinned Scroll Choreography
+  // 6. Luxury Apple-Grade Pinned Scroll Choreography with Card Explosion & Smoke Transition
   function initProcessChoreography() {
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
@@ -1798,6 +1798,27 @@
 
     if (!section || !cardTL || !cardBR || !cardBL || !cardTR || !cardHero) return;
 
+    // Create or find dynamic smoke overlay
+    let smokeOverlay = document.getElementById('choreo-smoke-overlay');
+    if (!smokeOverlay) {
+      smokeOverlay = document.createElement('div');
+      smokeOverlay.id = 'choreo-smoke-overlay';
+      smokeOverlay.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:90;opacity:0;overflow:hidden;';
+      smokeOverlay.innerHTML = `
+        <div class="smoke-shockwave" style="position:absolute;top:50%;left:50%;width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;border:4px solid #0284C7;box-shadow:0 0 60px #0284C7, inset 0 0 40px #38BDF8;opacity:0;transform:scale(0.1);will-change:transform,opacity;"></div>
+        <div class="smoke-puff puff-1" style="position:absolute;top:50%;left:50%;width:900px;height:900px;margin:-450px 0 0 -450px;border-radius:50%;background:radial-gradient(circle, #090e17 0%, rgba(9,14,23,0.95) 45%, rgba(2,132,199,0.3) 75%, transparent 100%);filter:blur(45px);opacity:0;transform:scale(0.2);will-change:transform,opacity;"></div>
+        <div class="smoke-puff puff-2" style="position:absolute;top:15%;left:15%;width:1100px;height:1100px;border-radius:50%;background:radial-gradient(circle, #090e17 0%, rgba(13,21,39,0.92) 50%, rgba(2,132,199,0.2) 70%, transparent 100%);filter:blur(55px);opacity:0;transform:scale(0.3);will-change:transform,opacity;"></div>
+        <div class="smoke-puff puff-3" style="position:absolute;bottom:10%;right:15%;width:1200px;height:1200px;border-radius:50%;background:radial-gradient(circle, #090e17 0%, rgba(9,14,23,0.95) 45%, rgba(56,189,248,0.25) 70%, transparent 100%);filter:blur(50px);opacity:0;transform:scale(0.3);will-change:transform,opacity;"></div>
+        <div class="smoke-puff puff-4" style="position:absolute;top:20%;right:10%;width:1000px;height:1000px;border-radius:50%;background:radial-gradient(circle, #090e17 0%, rgba(9,14,23,0.9) 50%, rgba(2,132,199,0.25) 75%, transparent 100%);filter:blur(40px);opacity:0;transform:scale(0.2);will-change:transform,opacity;"></div>
+        <div class="smoke-blanket" style="position:absolute;inset:0;width:100%;height:100%;background:#090e17;opacity:0;will-change:opacity;"></div>
+      `;
+      section.appendChild(smokeOverlay);
+    }
+
+    const shockwave = smokeOverlay.querySelector('.smoke-shockwave');
+    const smokePuffs = smokeOverlay.querySelectorAll('.smoke-puff');
+    const smokeBlanket = smokeOverlay.querySelector('.smoke-blanket');
+
     const navElements = [headerNav, burgerBtn, floatingBtn].filter(Boolean);
 
     const isMobile = window.innerWidth <= 900;
@@ -1817,17 +1838,19 @@
       opacity: 0,
       scale: 0.85,
       width: isMobile ? '85vw' : '36vw',
-      height: isMobile ? '22vh' : '23vh'
+      height: isMobile ? '22vh' : '23vh',
+      filter: 'blur(0px)'
     });
     if (heroCompact) gsap.set(heroCompact, { opacity: 1 });
     if (heroExpanded) gsap.set(heroExpanded, { opacity: 0, pointerEvents: 'none' });
+    if (smokeOverlay) gsap.set(smokeOverlay, { opacity: 0 });
 
     const choreoTL = gsap.timeline({
       scrollTrigger: {
         id: 'choreoMaster',
         trigger: section,
         start: 'top top',
-        end: '+=3600',
+        end: '+=4600',
         pin: true,
         pinSpacing: true,
         scrub: 0.8,
@@ -1849,24 +1872,24 @@
     });
 
     // PHASE 1: Diagonal Movement
-    choreoTL.to(cardTL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.3 }, 0)
-            .to(cardBR, { x: xRight, y: yTop, ease: 'power2.inOut', duration: 0.3 }, 0)
-            .to(cardBL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.3 }, 0)
-            .to(cardTR, { x: xRight, y: yTop, ease: 'power2.inOut', duration: 0.3 }, 0);
+    choreoTL.to(cardTL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.25 }, 0)
+            .to(cardBR, { x: xRight, y: yTop, ease: 'power2.inOut', duration: 0.25 }, 0)
+            .to(cardBL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.25 }, 0)
+            .to(cardTR, { x: xRight, y: yTop, ease: 'power2.inOut', duration: 0.25 }, 0);
 
     // PHASE 2: Stack Alignment to Center
     choreoTL.to([cardTL, cardBR, cardBL, cardTR], {
       x: '0vw',
       y: yCenter,
       ease: 'power2.inOut',
-      duration: 0.3
-    }, 0.35)
+      duration: 0.25
+    }, 0.28)
     .to(cardHero, {
       opacity: 1,
       scale: 1,
       ease: 'power2.out',
-      duration: 0.25
-    }, 0.45);
+      duration: 0.22
+    }, 0.36);
 
     // PHASE 3: Hero Card 5 Expands to Full Scale
     const heroTargetWidth = isMobile ? '92vw' : '88vw';
@@ -1877,14 +1900,14 @@
       scale: 0.8,
       filter: 'blur(8px)',
       ease: 'power2.inOut',
-      duration: 0.25
-    }, 0.68)
+      duration: 0.2
+    }, 0.52)
     .to(choreoHeader, {
       opacity: 0,
       y: -30,
       ease: 'power2.inOut',
-      duration: 0.2
-    }, 0.68)
+      duration: 0.18
+    }, 0.52)
     .to(cardHero, {
       x: '0vw',
       y: '0vh',
@@ -1895,24 +1918,71 @@
       borderRadius: '2.5rem',
       boxShadow: '0 35px 100px rgba(0,0,0,0.5)',
       ease: 'power2.inOut',
-      duration: 0.27
-    }, 0.68);
+      duration: 0.24
+    }, 0.52);
 
     if (heroCompact && heroExpanded) {
       choreoTL.to(heroCompact, {
         opacity: 0,
         ease: 'power2.inOut',
-        duration: 0.15
-      }, 0.72)
+        duration: 0.12
+      }, 0.56)
       .to(heroExpanded, {
         opacity: 1,
         pointerEvents: 'auto',
         ease: 'power2.inOut',
-        duration: 0.2
-      }, 0.78);
+        duration: 0.18
+      }, 0.62);
     }
 
-    choreoTL.to({}, { duration: 0.08 });
+    // Hold Step 05 card on screen
+    choreoTL.to({}, { duration: 0.18 });
+
+    // PHASE 4: 💥 CARD EXPLOSION & VOLUMETRIC SMOKE BLANKET
+    choreoTL.to(smokeOverlay, { opacity: 1, duration: 0.05 }, 0.85)
+    .to(shockwave, {
+      scale: 3.8,
+      opacity: 0,
+      duration: 0.22,
+      ease: 'power3.out'
+    }, 0.85)
+    .to(cardHero, {
+      scale: 1.8,
+      opacity: 0,
+      filter: 'blur(30px)',
+      duration: 0.24,
+      ease: 'power3.in'
+    }, 0.85)
+    .to(smokePuffs, {
+      scale: 1.8,
+      opacity: 0.95,
+      stagger: 0.03,
+      duration: 0.25,
+      ease: 'power2.out'
+    }, 0.86)
+    .to(smokeBlanket, {
+      opacity: 1,
+      duration: 0.2,
+      ease: 'power2.inOut'
+    }, 0.90);
+
+    // PHASE 5: 💨 SMOKE CLEARS & DISSOLVES TO REVEAL NEXT SECTION
+    choreoTL.to(smokePuffs, {
+      scale: 3.2,
+      opacity: 0,
+      filter: 'blur(70px)',
+      duration: 0.28,
+      ease: 'power2.inOut'
+    }, 1.15)
+    .to(smokeBlanket, {
+      opacity: 0,
+      duration: 0.25,
+      ease: 'power2.inOut'
+    }, 1.18)
+    .to(smokeOverlay, {
+      opacity: 0,
+      duration: 0.1
+    }, 1.35);
   }
 
     // 4. FAQ Accordions
