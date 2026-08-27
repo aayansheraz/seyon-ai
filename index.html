@@ -2169,20 +2169,19 @@
       }
     });
 
-    // === 3. Hero Content Fade-In-Place on Scroll (Pinned, No Upward Movement) ===
+    // === 3. Hero Content Fade on Scroll (Smooth Natural Transition) ===
     if (heroContent && heroSection) {
       gsap.to(heroContent, {
         scrollTrigger: {
-          id: 'heroPinFade',
+          id: 'heroFade',
           trigger: heroSection,
           start: 'top top',
-          end: '+=700',
-          pin: true,
-          pinSpacing: true,
+          end: '70% top',
           scrub: 0.5
         },
         autoAlpha: 0,
-        ease: 'power1.inOut'
+        y: -30,
+        ease: 'power1.out'
       });
     }
 
