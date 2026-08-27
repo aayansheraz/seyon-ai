@@ -1531,6 +1531,16 @@
     background-color: transparent !important;
     background: transparent !important;
   }
+  .Approach_approach__kHR9Y h2,
+  .Approach_approach__kHR9Y h2 *,
+  .Approach_approach__kHR9Y h2 span {
+    color: #000000 !important;
+  }
+  .Approach_approach__kHR9Y p,
+  .Approach_approach__kHR9Y p *,
+  .Approach_approach__kHR9Y p span {
+    color: #333333 !important;
+  }
   .hero_heading_el {
     color: #000000 !important;
   }
@@ -2141,6 +2151,12 @@
       // Set initial states for cards
       gsap.set(approachCards, { opacity: 0, y: 40 });
 
+      var navElements = [
+        document.querySelector('header'),
+        document.querySelector('.PrimaryNavigation_icon__qAQCe'),
+        document.querySelector('.FloatingStartButton_linkContainer__eZz7z')
+      ].filter(Boolean);
+
       var approachTL = gsap.timeline({
         scrollTrigger: {
           id: 'approachPinTimeline',
@@ -2150,7 +2166,19 @@
           pin: true,
           pinSpacing: true,
           scrub: 0.8,
-          anticipatePin: 1
+          anticipatePin: 1,
+          onEnter: function() {
+            gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+          },
+          onLeave: function() {
+            gsap.to(navElements, { opacity: 1, pointerEvents: 'auto', duration: 0.3, ease: 'power2.out' });
+          },
+          onEnterBack: function() {
+            gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+          },
+          onLeaveBack: function() {
+            gsap.to(navElements, { opacity: 1, pointerEvents: 'auto', duration: 0.3, ease: 'power2.out' });
+          }
         }
       });
 
