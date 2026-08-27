@@ -1562,6 +1562,12 @@
     position: relative !important;
     z-index: 20 !important;
   }
+  .Work_work__rSI8c {
+    background: #090e17 !important;
+    background-color: #090e17 !important;
+    position: relative !important;
+    z-index: 20 !important;
+  }
   .hero_heading_el {
     color: #000000 !important;
   }
@@ -1935,6 +1941,9 @@
       }, 0.62);
     }
 
+    const workSection = document.querySelector('.Work_work__rSI8c');
+    const processVideo = document.querySelector('.choreo_video_bg_wrap');
+
     // Hold Step 05 card on screen
     choreoTL.to({}, { duration: 0.18 });
 
@@ -1966,7 +1975,19 @@
       ease: 'power2.inOut'
     }, 0.90);
 
-    // PHASE 5: 💨 SMOKE CLEARS & DISSOLVES TO REVEAL NEXT SECTION
+    // Behind the dense smoke: hide circuit background video & bring in Client Success section
+    if (processVideo) {
+      choreoTL.to(processVideo, { opacity: 0, duration: 0.15 }, 0.92);
+    }
+    if (workSection) {
+      choreoTL.fromTo(workSection,
+        { yPercent: 100 },
+        { yPercent: 0, duration: 0.25, ease: 'none' },
+        0.90
+      );
+    }
+
+    // PHASE 5: 💨 SMOKE CLEARS & DISSOLVES TO REVEAL CLIENT SUCCESS SECTION
     choreoTL.to(smokePuffs, {
       scale: 3.2,
       opacity: 0,
