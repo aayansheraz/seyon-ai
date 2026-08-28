@@ -2460,16 +2460,16 @@
 
       if (typeof lenis !== 'undefined' && lenis) {
         lenis.scrollTo(csStage, {
-          duration: 1.2,
+          duration: 0.55,
           immediate: false,
           lock: false,
           onComplete: () => {
-            setTimeout(() => { isAutoScrolling = false; }, 400);
+            setTimeout(() => { isAutoScrolling = false; }, 200);
           }
         });
       } else {
         csStage.scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => { isAutoScrolling = false; }, 1400);
+        setTimeout(() => { isAutoScrolling = false; }, 600);
       }
     }
 
@@ -2478,32 +2478,32 @@
         id: 'choreoMaster',
         trigger: section,
         start: 'top top',
-        end: '+=4400',
+        end: '+=3800',
         pin: true,
         pinSpacing: true,
-        scrub: 0.8,
+        scrub: 0.5,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          if (self.progress >= 0.70 && self.direction > 0 && !isAutoScrolling) {
+          if (self.progress >= 0.65 && self.direction > 0 && !isAutoScrolling) {
             triggerAutoScrollToSuccess();
           }
-          if (self.progress < 0.40) {
+          if (self.progress < 0.35) {
             isAutoScrolling = false;
           }
         },
         onEnter: () => {
-          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.2, ease: 'power2.out' });
         },
         onLeave: () => {
-          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.2, ease: 'power2.out' });
           triggerAutoScrollToSuccess();
         },
         onEnterBack: () => {
-          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.2, ease: 'power2.out' });
         },
         onLeaveBack: () => {
-          gsap.to(navElements, { opacity: 1, pointerEvents: 'auto', duration: 0.3, ease: 'power2.out' });
+          gsap.to(navElements, { opacity: 1, pointerEvents: 'auto', duration: 0.2, ease: 'power2.out' });
         }
       }
     });
@@ -2574,60 +2574,60 @@
 
     const processVideo = document.querySelector('.choreo_video_bg_wrap');
 
-    // Hold Step 05 card on screen
-    choreoTL.to({}, { duration: 0.18 });
+    // Hold Step 05 card on screen briefly
+    choreoTL.to({}, { duration: 0.1 });
 
-    // PHASE 4: 💥 CARD EXPLOSION & VOLUMETRIC SMOKE BLANKET
-    choreoTL.to(smokeOverlay, { opacity: 1, duration: 0.05 }, 0.85)
+    // PHASE 4: 💥 RAPID CARD EXPLOSION & VOLUMETRIC SMOKE BLANKET
+    choreoTL.to(smokeOverlay, { opacity: 1, duration: 0.04 }, 0.76)
     .to(shockwave, {
-      scale: 3.8,
+      scale: 4,
       opacity: 0,
-      duration: 0.22,
+      duration: 0.14,
       ease: 'power3.out'
-    }, 0.85)
+    }, 0.76)
     .to(cardHero, {
       scale: 1.8,
       opacity: 0,
       filter: 'blur(30px)',
-      duration: 0.24,
+      duration: 0.15,
       ease: 'power3.in'
-    }, 0.85)
+    }, 0.76)
     .to(smokePuffs, {
       scale: 1.8,
       opacity: 0.98,
-      stagger: 0.03,
-      duration: 0.25,
+      stagger: 0.02,
+      duration: 0.16,
       ease: 'power2.out'
-    }, 0.86)
+    }, 0.77)
     .to(smokeBlanket, {
       opacity: 1,
-      duration: 0.2,
+      duration: 0.12,
       ease: 'power2.inOut'
-    }, 0.90)
-    .call(triggerAutoScrollToSuccess, null, 0.90);
+    }, 0.79)
+    .call(triggerAutoScrollToSuccess, null, 0.79);
 
     // Behind the dense smoke: hide circuit background video
     if (processVideo) {
-      choreoTL.to(processVideo, { opacity: 0, duration: 0.15 }, 0.92);
+      choreoTL.to(processVideo, { opacity: 0, duration: 0.1 }, 0.80);
     }
 
-    // PHASE 5: 💨 SMOKE CLEARS & DISSOLVES TO REVEAL CLIENT SUCCESS SECTION
+    // PHASE 5: 💨 RAPID SMOKE CLEAR & REVEAL
     choreoTL.to(smokePuffs, {
       scale: 3.2,
       opacity: 0,
       filter: 'blur(70px)',
-      duration: 0.28,
+      duration: 0.16,
       ease: 'power2.inOut'
-    }, 1.15)
+    }, 0.88)
     .to(smokeBlanket, {
       opacity: 0,
-      duration: 0.25,
+      duration: 0.14,
       ease: 'power2.inOut'
-    }, 1.18)
+    }, 0.90)
     .to(smokeOverlay, {
       opacity: 0,
-      duration: 0.1
-    }, 1.35);
+      duration: 0.08
+    }, 0.96);
   }
 
   // 7. Client Success Robot Stage Pinned Choreography (Side-by-Side in Negative Space)
