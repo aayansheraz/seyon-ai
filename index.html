@@ -1133,14 +1133,14 @@
     .client_robot_card {
       position: absolute;
       width: clamp(285px, 22vw, 355px);
+      height: 220px;
       background: #080e18;
-      border: 1px solid rgba(255, 255, 255, 0.14);
-      border-radius: 1.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 1.5rem;
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(2, 132, 199, 0.15);
       overflow: hidden;
       text-decoration: none;
-      display: flex;
-      flex-direction: column;
+      display: block;
       will-change: transform, opacity;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
       pointer-events: auto;
@@ -1151,52 +1151,56 @@
       border-color: #0284C7;
       box-shadow: 0 30px 75px rgba(0, 0, 0, 0.95), 0 0 35px rgba(2, 132, 199, 0.5);
     }
-    .client_robot_card .ProjectCard_projectText__o770X {
-      padding: 0.9rem 1.2rem;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-      background: #0c1424 !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-      box-sizing: border-box !important;
-      height: 52px !important;
-      min-height: 52px !important;
-      max-height: 52px !important;
-      margin: 0 !important;
-      position: relative !important;
-      z-index: 3 !important;
+    .client_robot_card_header {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      background: rgba(9, 14, 23, 0.86);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 40px;
+      padding: 7px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+      box-sizing: border-box;
+      pointer-events: none;
     }
-    .client_robot_card .ProjectCard_projectText__o770X h3 {
+    .client_robot_card_title {
       font-family: var(--syne), sans-serif;
-      font-size: 0.94rem;
+      font-size: 0.88rem;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1;
       color: #ffffff !important;
       margin: 0;
       display: inline-flex;
       align-items: center;
       letter-spacing: -0.02em;
     }
-    .client_robot_card .ProjectCard_projectText__o770X p {
+    .client_robot_card_year {
       font-family: var(--montreal), sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 800;
       letter-spacing: 0.04em;
       color: #38BDF8 !important;
-      background: rgba(56, 189, 248, 0.14);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-      padding: 3px 9px;
-      border-radius: 12px;
-      margin: 0;
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 2px 8px;
+      border-radius: 20px;
       line-height: 1;
+      display: inline-block;
     }
     .client_robot_card .ProjectCard_projectImage__Nfx9I {
-      position: relative !important;
+      position: absolute !important;
+      inset: 0 !important;
       width: 100% !important;
-      height: 175px !important;
+      height: 100% !important;
       margin: 0 !important;
-      margin-top: 0 !important;
-      top: 0 !important;
+      padding: 0 !important;
       overflow: hidden !important;
       background: #060b13 !important;
       display: block !important;
@@ -1211,7 +1215,7 @@
       transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .client_robot_card:hover .ProjectCard_projectImage__Nfx9I img {
-      transform: scale(1.08) !important;
+      transform: scale(1.09) !important;
     }
     .client_robot_card .ProjectCard_imageOverlay__OCawr {
       position: absolute;
@@ -1225,7 +1229,7 @@
       opacity: 0;
       transform: translateY(6px);
       transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      z-index: 2;
+      z-index: 5;
     }
     .client_robot_card:hover .ProjectCard_imageOverlay__OCawr {
       opacity: 1;
@@ -1274,7 +1278,47 @@
       z-index: 35;
       text-align: center;
       will-change: transform, opacity;
-      pointer-events: none;
+      pointer-events: auto;
+    }
+    .client_robot_cta_btn {
+      text-decoration: none !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.75rem !important;
+      padding: 0.4rem 0.6rem !important;
+      cursor: pointer !important;
+    }
+    .client_robot_cta_wrap .Button_textInner__JTTHe {
+      color: #8B5CF6 !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      font-family: var(--syne), sans-serif !important;
+      letter-spacing: -0.02em !important;
+      transition: color 0.3s ease !important;
+    }
+    .client_robot_cta_wrap .Button_buttonArrow__0W9XI {
+      width: 44px !important;
+      height: 44px !important;
+      border-radius: 50% !important;
+      border: 1.5px solid #8B5CF6 !important;
+      background: rgba(139, 92, 246, 0.08) !important;
+      padding: 11px !important;
+      box-sizing: border-box !important;
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.3) !important;
+      fill: #8B5CF6 !important;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, fill 0.3s ease !important;
+      display: inline-block !important;
+      vertical-align: middle !important;
+    }
+    .client_robot_cta_wrap:hover .Button_textInner__JTTHe {
+      color: #C084FC !important;
+    }
+    .client_robot_cta_wrap:hover .Button_buttonArrow__0W9XI {
+      border-color: #C084FC !important;
+      background: rgba(139, 92, 246, 0.25) !important;
+      box-shadow: 0 0 25px rgba(192, 132, 252, 0.6) !important;
+      transform: translateX(4px) !important;
+      fill: #ffffff !important;
     }
 
     @media (max-width: 900px) {
@@ -1313,9 +1357,9 @@
   <div class="client_robot_stage">
     <!-- Card 1: Apex Roofing Group -->
     <a class="ProjectCard_project__d1wbY client_robot_card robot_card_pos_1 client_robot_c1" href="/case-studies/a1-roofing-dallas">
-      <div class="ProjectCard_projectText__o770X">
-        <h3>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.78 14.78" style="width:0.75em;height:0.75em;display:inline-block;margin-right:6px;vertical-align:middle">
+      <div class="client_robot_card_header">
+        <h3 class="client_robot_card_title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.78 14.78" style="width:0.78em;height:0.78em;display:inline-block;margin-right:6px;vertical-align:middle">
             <defs>
               <linearGradient id="work-arrow-grad-c1" x1="3.54" x2="13.98" y1="3.54" y2="13.99" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stop-color="#0284C7"></stop>
@@ -1325,7 +1369,7 @@
             <path fill="url(#work-arrow-grad-c1)" stroke-width="0" d="M13.25 12.18L13.25 0.23 14.78 0.23 14.78 14.76 14.74 14.76 14.74 14.78 0.21 14.78 0.21 13.25 12.18 13.25 0 1.08 1.08 0 13.25 12.18z"></path>
           </svg>Apex Roofing Group
         </h3>
-        <p>2026</p>
+        <span class="client_robot_card_year">2026</span>
       </div>
       <div class="ProjectCard_projectImage__Nfx9I">
         <div class="ProjectCard_imageOverlay__OCawr">
@@ -1342,9 +1386,9 @@
 
     <!-- Card 2: Aura Med Spa -->
     <a class="ProjectCard_project__d1wbY client_robot_card robot_card_pos_2 client_robot_c2" href="/case-studies/medical-spa">
-      <div class="ProjectCard_projectText__o770X">
-        <h3>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.78 14.78" style="width:0.75em;height:0.75em;display:inline-block;margin-right:6px;vertical-align:middle">
+      <div class="client_robot_card_header">
+        <h3 class="client_robot_card_title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.78 14.78" style="width:0.78em;height:0.78em;display:inline-block;margin-right:6px;vertical-align:middle">
             <defs>
               <linearGradient id="work-arrow-grad-c2" x1="3.54" x2="13.98" y1="3.54" y2="13.99" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stop-color="#0284C7"></stop>
@@ -1354,7 +1398,7 @@
             <path fill="url(#work-arrow-grad-c2)" stroke-width="0" d="M13.25 12.18L13.25 0.23 14.78 0.23 14.78 14.76 14.74 14.76 14.74 14.78 0.21 14.78 0.21 13.25 12.18 13.25 0 1.08 1.08 0 13.25 12.18z"></path>
           </svg>Aura Med Spa
         </h3>
-        <p>2026</p>
+        <span class="client_robot_card_year">2026</span>
       </div>
       <div class="ProjectCard_projectImage__Nfx9I">
         <div class="ProjectCard_imageOverlay__OCawr">
@@ -1371,9 +1415,9 @@
 
     <!-- Card 3: George & Associates Law Firm -->
     <a class="ProjectCard_project__d1wbY client_robot_card robot_card_pos_3 client_robot_c3" href="/case-studies/george-associates-law-firm">
-      <div class="ProjectCard_projectText__o770X">
-        <h3>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.78 14.78" style="width:0.75em;height:0.75em;display:inline-block;margin-right:6px;vertical-align:middle">
+      <div class="client_robot_card_header">
+        <h3 class="client_robot_card_title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.78 14.78" style="width:0.78em;height:0.78em;display:inline-block;margin-right:6px;vertical-align:middle">
             <defs>
               <linearGradient id="work-arrow-grad-c3" x1="3.54" x2="13.98" y1="3.54" y2="13.99" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stop-color="#0284C7"></stop>
@@ -1383,7 +1427,7 @@
             <path fill="url(#work-arrow-grad-c3)" stroke-width="0" d="M13.25 12.18L13.25 0.23 14.78 0.23 14.78 14.76 14.74 14.76 14.74 14.78 0.21 14.78 0.21 13.25 12.18 13.25 0 1.08 1.08 0 13.25 12.18z"></path>
           </svg>George &amp; Associates
         </h3>
-        <p>2025</p>
+        <span class="client_robot_card_year">2025</span>
       </div>
       <div class="ProjectCard_projectImage__Nfx9I">
         <div class="ProjectCard_imageOverlay__OCawr">
@@ -1400,9 +1444,9 @@
 
     <!-- Card 4: OK Heating & Air -->
     <a class="ProjectCard_project__d1wbY client_robot_card robot_card_pos_4 client_robot_c4" href="/case-studies/ok-heating-air">
-      <div class="ProjectCard_projectText__o770X">
-        <h3>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.78 14.78" style="width:0.75em;height:0.75em;display:inline-block;margin-right:6px;vertical-align:middle">
+      <div class="client_robot_card_header">
+        <h3 class="client_robot_card_title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14.78 14.78" style="width:0.78em;height:0.78em;display:inline-block;margin-right:6px;vertical-align:middle">
             <defs>
               <linearGradient id="work-arrow-grad-c4" x1="3.54" x2="13.98" y1="3.54" y2="13.99" gradientUnits="userSpaceOnUse">
                 <stop offset="0" stop-color="#0284C7"></stop>
@@ -1412,7 +1456,7 @@
             <path fill="url(#work-arrow-grad-c4)" stroke-width="0" d="M13.25 12.18L13.25 0.23 14.78 0.23 14.78 14.76 14.74 14.76 14.74 14.78 0.21 14.78 0.21 13.25 12.18 13.25 0 1.08 1.08 0 13.25 12.18z"></path>
           </svg>OK Heating &amp; Air
         </h3>
-        <p>2025</p>
+        <span class="client_robot_card_year">2025</span>
       </div>
       <div class="ProjectCard_projectImage__Nfx9I">
         <div class="ProjectCard_imageOverlay__OCawr">
@@ -1430,13 +1474,18 @@
 
   <!-- Bottom CTA Button (Under Robot's Shoes) -->
   <div class="client_robot_cta_wrap">
-    <div class="Button_button__JJiqJ" data-direction="forwards" style="background:#0284C7;border-radius:50px;box-shadow:0 10px 30px rgba(2,132,199,0.4);border:1px solid rgba(255,255,255,0.2)">
-      <a class="Button_inner__fnyH6" href="/case-studies" style="color:#ffffff;text-decoration:none;padding:0.8rem 2.2rem;display:inline-flex;align-items:center;gap:8px;font-family:var(--syne),sans-serif;font-weight:700;font-size:0.95rem">
-        <span>View all case studies</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.1 15.17" style="width:14px;height:14px" fill="#ffffff">
-          <path d="m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z" fill="#ffffff"></path>
-        </svg>
-      </a>
+    <div class="Magnetic_magnetic__LncOy" data-fill="false">
+      <div class="Button_button__JJiqJ" data-direction="forwards">
+        <a class="Button_inner__fnyH6 client_robot_cta_btn" href="/case-studies/">
+          <span class="Button_border__hirH2"></span>
+          <span class="Button_text__IZaCD">
+            <span class="Button_textInner__JTTHe">View all case studies</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.1 15.17" class="Button_buttonArrow__0W9XI">
+              <path d="m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z"></path>
+            </svg>
+          </span>
+        </a>
+      </div>
     </div>
   </div>
 </section><div class="reveal-fade-in"></div><div class="Partners_partners__jBo8y" style="background:#090e17;padding:5.5rem 0 6rem;position:relative;border-top:1px solid rgba(255,255,255,0.06)">
