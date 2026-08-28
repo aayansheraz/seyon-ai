@@ -420,7 +420,7 @@
               display: block !important;
             }
           }
-        </style><div class="hero_video_bg_container" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:0;background:#ffffff;pointer-events:none"><video id="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="/assets/hero-bg-poster.webp" style="position:absolute;top:50%;left:50%;width:100%;height:100%;min-width:100%;min-height:100%;transform:translate(-50%, -50%);object-fit:cover;object-position:88% center;will-change:transform;pointer-events:none;opacity:0.98;background:#ffffff"><source src="/assets/hero-bg.webm" type="video/webm" /><source src="/assets/hero-bg.mp4" type="video/mp4" /></video></div><div class="hero-ambient-glow-1" style="position:absolute;top:-50px;right:10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle, rgba(2,132,199,0.06) 0%, transparent 70%);filter:blur(60px);pointer-events:none;z-index:0;will-change:transform"></div><div class="hero-ambient-glow-2" style="position:absolute;top:250px;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle, rgba(2,132,199,0.04) 0%, transparent 70%);filter:blur(80px);pointer-events:none;z-index:0;will-change:transform"></div><div style="position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(0,0,0,0.015) 1px, transparent 1px),
+        </style><div class="hero_video_bg_container"><video id="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="/assets/hero-bg-poster.webp"><source src="/assets/hero-bg.webm" type="video/webm" /><source src="/assets/hero-bg.mp4" type="video/mp4" /></video></div><div class="hero-ambient-glow-1" style="position:absolute;top:-50px;right:10%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle, rgba(2,132,199,0.06) 0%, transparent 70%);filter:blur(60px);pointer-events:none;z-index:0;will-change:transform"></div><div class="hero-ambient-glow-2" style="position:absolute;top:250px;right:-5%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle, rgba(2,132,199,0.04) 0%, transparent 70%);filter:blur(80px);pointer-events:none;z-index:0;will-change:transform"></div><div style="position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(0,0,0,0.015) 1px, transparent 1px),
             linear-gradient(90deg, rgba(0,0,0,0.015) 1px, transparent 1px);background-size:100px 100px;pointer-events:none;z-index:0"></div><div style="position:absolute;top:0;left:0;width:100%;height:100%;background-image:radial-gradient(rgba(0,0,0,0.02) 1px, transparent 1px);background-size:20px 20px;pointer-events:none;z-index:0"></div><div class="hero_container" style="position:relative;z-index:10;width:100%"><div class="hero_text_align_wrapper"><span class="hero_badge_el">Revenue &amp; Acquisition Consulting</span><h1 class="hero_heading_el"><span style="color:#000000 !important">Automate</span><br/><span style="color:#000000 !important">Your</span><br/><span style="color:#000000 !important">Business with</span><br/><span style="color:#0284C7 !important">AI That Works</span><br/><span style="color:#0284C7 !important">24/7.</span></h1><p class="hero_para_el hero_para_1"><span style="color:#1a1a1a !important">Build AI Voice Agents and business automations.</span></p></div></div></section><section class="Approach_approach__kHR9Y" style="overflow:hidden">
   <div class="container">
     <div class="Approach_headingRow__9igcA">
@@ -2273,20 +2273,35 @@
   #hero-bg-video {
     position: absolute !important;
     top: 50% !important;
-    left: 50% !important;
-    width: 100% !important;
-    height: 100% !important;
-    min-width: 100% !important;
-    min-height: 100% !important;
-    transform: translate(-50%, -50%) !important;
+    right: -4vw !important;
+    left: auto !important;
+    width: 65vw !important;
+    min-width: 600px !important;
+    max-width: 1200px !important;
+    height: 100vh !important;
+    transform: translateY(-50%) !important;
     object-fit: cover !important;
-    object-position: 88% center !important;
+    object-position: center center !important;
     opacity: 0.98 !important;
     z-index: 0 !important;
     pointer-events: none !important;
     display: block !important;
     border: none !important;
-    background: #ffffff !important;
+    background: transparent !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000000 20%, #000000 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0%, #000000 20%, #000000 100%) !important;
+  }
+  @media (max-width: 768px) {
+    .hero_section_el video,
+    #hero-bg-video {
+      right: 0 !important;
+      left: 50% !important;
+      width: 100% !important;
+      min-width: 100% !important;
+      transform: translate(-50%, -50%) !important;
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+    }
   }
 
   /* Work / Client Success section heading */
