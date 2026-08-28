@@ -1243,14 +1243,14 @@
     }
 
     /* 4 Quadrant Positions in Negative Space */
-    .robot_card_pos_1 { top: 12vh; left: 4vw; }
-    .robot_card_pos_2 { top: 12vh; right: 4vw; }
-    .robot_card_pos_3 { bottom: 12vh; left: 4vw; }
-    .robot_card_pos_4 { bottom: 12vh; right: 4vw; }
+    .robot_card_pos_1 { top: 14vh; left: 3.5vw; }
+    .robot_card_pos_2 { top: 14vh; right: 3.5vw; }
+    .robot_card_pos_3 { bottom: 11vh; left: 3.5vw; }
+    .robot_card_pos_4 { bottom: 11vh; right: 3.5vw; }
 
     .client_robot_cta_wrap {
       position: absolute;
-      bottom: 2.8vh;
+      bottom: 2.2vh;
       left: 50%;
       transform: translate(-50%, 0);
       z-index: 35;
@@ -2374,7 +2374,8 @@
     });
     if (heroCompact) gsap.set(heroCompact, { opacity: 1 });
     if (heroExpanded) gsap.set(heroExpanded, { opacity: 0, pointerEvents: 'none' });
-    if (smokeOverlay) gsap.set(smokeOverlay, { opacity: 0 });
+    if (smokeOverlay) gsap.set(smokeOverlay, {});
+    let autoScrolledToSuccess = false;
 
     const choreoTL = gsap.timeline({
       scrollTrigger: {
@@ -2387,11 +2388,23 @@
         scrub: 0.8,
         anticipatePin: 1,
         invalidateOnRefresh: true,
+        onUpdate: (self) => {
+          if (self.progress >= 0.90 && self.direction > 0 && !autoScrolledToSuccess) {
+            autoScrolledToSuccess = true;
+            const csStage = document.getElementById('client-success-stage');
+            if (csStage && typeof lenis !== 'undefined' && lenis) {
+              lenis.scrollTo(csStage, { duration: 1.1, lock: false });
+            }
+          }
+          if (self.progress < 0.75) {
+            autoScrolledToSuccess = false;
+          }
+        },
         onEnter: () => {
           gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
         },
         onLeave: () => {
-          gsap.to(navElements, { opacity: 1, pointerEvents: 'auto', duration: 0.3, ease: 'power2.out' });
+          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
         },
         onEnterBack: () => {
           gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
@@ -2466,7 +2479,6 @@
       }, 0.62);
     }
 
-    const workSection = document.querySelector('.Work_work__rSI8c');
     const processVideo = document.querySelector('.choreo_video_bg_wrap');
 
     // Hold Step 05 card on screen
@@ -2549,67 +2561,86 @@
     }
 
     const isMobile = window.innerWidth <= 900;
+    const navElements = [
+      document.querySelector('header'),
+      document.querySelector('.PrimaryNavigation_icon__qAQCe'),
+      document.querySelector('.FloatingStartButton_linkContainer__eZz7z')
+    ].filter(Boolean);
+
+    // Guarantee absolute initial states
+    gsap.set(card1, { x: isMobile ? -30 : -80, opacity: 0, scale: 0.9 });
+    gsap.set(card2, { x: isMobile ? 30 : 80, opacity: 0, scale: 0.9 });
+    gsap.set(card3, { x: isMobile ? -30 : -80, opacity: 0, scale: 0.9 });
+    gsap.set(card4, { x: isMobile ? 30 : 80, opacity: 0, scale: 0.9 });
+    if (cta) gsap.set(cta, { y: 35, opacity: 0, pointerEvents: 'none' });
 
     const csTL = gsap.timeline({
       scrollTrigger: {
         id: 'clientSuccessMaster',
         trigger: stage,
         start: 'top top',
-        end: '+=3000',
+        end: '+=4200',
         pin: true,
         pinSpacing: true,
-        scrub: 0.8,
+        scrub: 1.0,
         anticipatePin: 1,
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
+        onEnter: () => {
+          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+        },
+        onLeave: () => {
+          gsap.to(navElements, { opacity: 1, pointerEvents: 'auto', duration: 0.3, ease: 'power2.out' });
+        },
+        onEnterBack: () => {
+          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+        },
+        onLeaveBack: () => {
+          gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+        }
       }
     });
 
     if (isMobile) {
       // Mobile: Sequential reveal one by one
-      csTL.fromTo(card1, { x: -30, opacity: 0, scale: 0.95 }, { x: 0, opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0.05)
+      csTL.to(card1, { x: 0, opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0.08)
           .to(card1, { opacity: 0, scale: 0.95, duration: 0.12, ease: 'power2.in' }, 0.25)
-          .fromTo(card2, { x: 30, opacity: 0, scale: 0.95 }, { x: 0, opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0.28)
+          .to(card2, { x: 0, opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0.28)
           .to(card2, { opacity: 0, scale: 0.95, duration: 0.12, ease: 'power2.in' }, 0.48)
-          .fromTo(card3, { x: -30, opacity: 0, scale: 0.95 }, { x: 0, opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0.51)
+          .to(card3, { x: 0, opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0.51)
           .to(card3, { opacity: 0, scale: 0.95, duration: 0.12, ease: 'power2.in' }, 0.71)
-          .fromTo(card4, { x: 30, opacity: 0, scale: 0.95 }, { x: 0, opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0.74);
+          .to(card4, { x: 0, opacity: 1, scale: 1, duration: 0.18, ease: 'power2.out' }, 0.74);
     } else {
       // Desktop: 4 Quadrants in Negative Space around Robot
       // Step 1: Card 1 (Left Top)
-      csTL.fromTo(card1,
-        { x: -50, opacity: 0, scale: 0.95 },
+      csTL.to(card1,
         { x: 0, opacity: 1, scale: 1, duration: 0.22, ease: 'power2.out' },
-        0.08
+        0.12
       );
 
       // Step 2: Card 2 (Right Top)
-      csTL.fromTo(card2,
-        { x: 50, opacity: 0, scale: 0.95 },
+      csTL.to(card2,
         { x: 0, opacity: 1, scale: 1, duration: 0.22, ease: 'power2.out' },
-        0.28
+        0.32
       );
 
       // Step 3: Card 3 (Left Bottom)
-      csTL.fromTo(card3,
-        { x: -50, opacity: 0, scale: 0.95 },
+      csTL.to(card3,
         { x: 0, opacity: 1, scale: 1, duration: 0.22, ease: 'power2.out' },
-        0.48
+        0.52
       );
 
       // Step 4: Card 4 (Right Bottom)
-      csTL.fromTo(card4,
-        { x: 50, opacity: 0, scale: 0.95 },
+      csTL.to(card4,
         { x: 0, opacity: 1, scale: 1, duration: 0.22, ease: 'power2.out' },
-        0.68
+        0.72
       );
     }
 
     // Step 5: "View all case studies" Button under Robot's Shoes
     if (cta) {
-      csTL.fromTo(cta,
-        { y: 25, opacity: 0, pointerEvents: 'none' },
-        { y: 0, opacity: 1, pointerEvents: 'auto', duration: 0.18, ease: 'power2.out' },
-        0.84
+      csTL.to(cta,
+        { y: 0, opacity: 1, pointerEvents: 'auto', duration: 0.16, ease: 'power2.out' },
+        0.88
       );
     }
 
