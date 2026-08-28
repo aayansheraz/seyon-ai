@@ -1281,44 +1281,57 @@
       pointer-events: auto;
     }
     .client_robot_cta_btn {
-      text-decoration: none !important;
       display: inline-flex !important;
       align-items: center !important;
-      gap: 0.75rem !important;
-      padding: 0.4rem 0.6rem !important;
+      gap: 1.1rem !important;
+      text-decoration: none !important;
       cursor: pointer !important;
+      background: transparent !important;
+      border: none !important;
+      padding: 0.5rem 0.8rem !important;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
-    .client_robot_cta_wrap .Button_textInner__JTTHe {
-      color: #8B5CF6 !important;
-      font-size: 1.05rem !important;
-      font-weight: 700 !important;
+    .client_robot_cta_btn:hover {
+      transform: scale(1.06) !important;
+    }
+    .client_robot_cta_text {
       font-family: var(--syne), sans-serif !important;
+      font-size: clamp(1.05rem, 1.3vw, 1.25rem) !important;
+      font-weight: 700 !important;
       letter-spacing: -0.02em !important;
+      color: #8B5CF6 !important;
       transition: color 0.3s ease !important;
     }
-    .client_robot_cta_wrap .Button_buttonArrow__0W9XI {
-      width: 44px !important;
-      height: 44px !important;
+    .client_robot_cta_btn:hover .client_robot_cta_text {
+      color: #C084FC !important;
+    }
+    .client_robot_cta_circle {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 46px !important;
+      height: 46px !important;
       border-radius: 50% !important;
       border: 1.5px solid #8B5CF6 !important;
       background: rgba(139, 92, 246, 0.08) !important;
-      padding: 11px !important;
-      box-sizing: border-box !important;
-      box-shadow: 0 0 15px rgba(139, 92, 246, 0.3) !important;
+      box-shadow: 0 0 16px rgba(139, 92, 246, 0.35) !important;
+      transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .client_robot_cta_arrow {
+      width: 16px !important;
+      height: 16px !important;
       fill: #8B5CF6 !important;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, fill 0.3s ease !important;
-      display: inline-block !important;
-      vertical-align: middle !important;
+      transition: fill 0.3s ease, transform 0.3s ease !important;
     }
-    .client_robot_cta_wrap:hover .Button_textInner__JTTHe {
-      color: #C084FC !important;
-    }
-    .client_robot_cta_wrap:hover .Button_buttonArrow__0W9XI {
+    .client_robot_cta_btn:hover .client_robot_cta_circle {
       border-color: #C084FC !important;
       background: rgba(139, 92, 246, 0.25) !important;
       box-shadow: 0 0 25px rgba(192, 132, 252, 0.6) !important;
       transform: translateX(4px) !important;
+    }
+    .client_robot_cta_btn:hover .client_robot_cta_arrow {
       fill: #ffffff !important;
+      transform: translateX(2px) !important;
     }
 
     @media (max-width: 900px) {
@@ -1474,19 +1487,14 @@
 
   <!-- Bottom CTA Button (Under Robot's Shoes) -->
   <div class="client_robot_cta_wrap">
-    <div class="Magnetic_magnetic__LncOy" data-fill="false">
-      <div class="Button_button__JJiqJ" data-direction="forwards">
-        <a class="Button_inner__fnyH6 client_robot_cta_btn" href="/case-studies/">
-          <span class="Button_border__hirH2"></span>
-          <span class="Button_text__IZaCD">
-            <span class="Button_textInner__JTTHe">View all case studies</span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.1 15.17" class="Button_buttonArrow__0W9XI">
-              <path d="m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z"></path>
-            </svg>
-          </span>
-        </a>
-      </div>
-    </div>
+    <a class="client_robot_cta_btn" href="/case-studies/">
+      <span class="client_robot_cta_text">View all case studies</span>
+      <span class="client_robot_cta_circle">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.1 15.17" class="client_robot_cta_arrow">
+          <path d="m17.1,7.58s-.01-.04-.01-.06c.01-.22-.06-.45-.24-.61L9.23.19c-.31-.27-.78-.24-1.06.07-.27.31-.24.78.07,1.06l6.26,5.52H.75c-.41,0-.75.34-.75.75s.34.75.75.75h13.74l-6.26,5.52c-.31.27-.34.75-.07,1.06.15.17.35.25.56.25.18,0,.35-.06.5-.19l7.62-6.72c.18-.16.25-.39.24-.61,0-.02.01-.04.01-.06Z"></path>
+        </svg>
+      </span>
+    </a>
   </div>
 </section><div class="reveal-fade-in"></div><div class="Partners_partners__jBo8y" style="background:#090e17;padding:5.5rem 0 6rem;position:relative;border-top:1px solid rgba(255,255,255,0.06)">
   <div class="DarkThemeSwitch_cover__hn_xc"></div>
