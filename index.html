@@ -1283,12 +1283,14 @@
     .client_robot_cta_btn {
       display: inline-flex !important;
       align-items: center !important;
-      gap: 1.1rem !important;
+      gap: 1.15rem !important;
       text-decoration: none !important;
       cursor: pointer !important;
       background: transparent !important;
       border: none !important;
-      padding: 0.5rem 0.8rem !important;
+      padding: 0.6rem 1.2rem !important;
+      position: relative !important;
+      will-change: transform !important;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .client_robot_cta_btn:hover {
@@ -1300,38 +1302,44 @@
       font-weight: 700 !important;
       letter-spacing: -0.02em !important;
       color: #8B5CF6 !important;
-      transition: color 0.3s ease !important;
+      position: relative !important;
+      display: inline-block !important;
+      transition: color 0.35s ease, text-shadow 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .client_robot_cta_btn:hover .client_robot_cta_text {
       color: #C084FC !important;
+      text-shadow: 0 0 25px rgba(192, 132, 252, 0.75) !important;
+      transform: translateX(-3px) !important;
     }
     .client_robot_cta_circle {
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      width: 46px !important;
-      height: 46px !important;
+      width: 48px !important;
+      height: 48px !important;
       border-radius: 50% !important;
       border: 1.5px solid #8B5CF6 !important;
       background: rgba(139, 92, 246, 0.08) !important;
       box-shadow: 0 0 16px rgba(139, 92, 246, 0.35) !important;
-      transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
-    }
-    .client_robot_cta_arrow {
-      width: 16px !important;
-      height: 16px !important;
-      fill: #8B5CF6 !important;
-      transition: fill 0.3s ease, transform 0.3s ease !important;
+      position: relative !important;
+      overflow: hidden !important;
+      transition: border-color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .client_robot_cta_btn:hover .client_robot_cta_circle {
       border-color: #C084FC !important;
-      background: rgba(139, 92, 246, 0.25) !important;
-      box-shadow: 0 0 25px rgba(192, 132, 252, 0.6) !important;
-      transform: translateX(4px) !important;
+      background: rgba(139, 92, 246, 0.28) !important;
+      box-shadow: 0 0 35px rgba(192, 132, 252, 0.8), 0 0 60px rgba(139, 92, 246, 0.4) !important;
+      transform: scale(1.12) !important;
+    }
+    .client_robot_cta_arrow {
+      width: 17px !important;
+      height: 17px !important;
+      fill: #8B5CF6 !important;
+      transition: fill 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
     .client_robot_cta_btn:hover .client_robot_cta_arrow {
       fill: #ffffff !important;
-      transform: translateX(2px) !important;
+      transform: translateX(4px) scale(1.15) !important;
     }
 
     @media (max-width: 900px) {
@@ -2736,6 +2744,20 @@
         { y: 0, opacity: 1, pointerEvents: 'auto', duration: 0.16, ease: 'power2.out' },
         0.88
       );
+
+      const ctaBtn = cta.querySelector('.client_robot_cta_btn');
+      if (ctaBtn && !ctaBtn._hasMagnetic) {
+        ctaBtn._hasMagnetic = true;
+        ctaBtn.addEventListener('mousemove', (e) => {
+          const rect = ctaBtn.getBoundingClientRect();
+          const x = (e.clientX - (rect.left + rect.width / 2)) * 0.38;
+          const y = (e.clientY - (rect.top + rect.height / 2)) * 0.38;
+          gsap.to(ctaBtn, { x, y, duration: 0.3, ease: 'power2.out' });
+        });
+        ctaBtn.addEventListener('mouseleave', () => {
+          gsap.to(ctaBtn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.1, 0.4)' });
+        });
+      }
     }
 
     // Hold final composition on screen before unpinning to Partners
