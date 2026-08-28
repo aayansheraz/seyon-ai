@@ -1504,7 +1504,7 @@
       </span>
     </a>
   </div>
-</section><div class="reveal-fade-in"></div><div class="Partners_partners__jBo8y" style="background:#090e17;padding:5.5rem 0 6rem;position:relative;border-top:1px solid rgba(255,255,255,0.06)">
+</section><div class="reveal-fade-in"></div><div class="Partners_partners__jBo8y" style="background:#090e17;padding:5rem 0 5.5rem;position:relative;border-top:1px solid rgba(255,255,255,0.06);overflow:hidden">
   <div class="DarkThemeSwitch_cover__hn_xc"></div>
   <div class="container">
     <div class="Partners_headingInner__vdhDe reveal-fade-in" style="margin-bottom:3rem">
@@ -1520,73 +1520,110 @@
         </span>
       </div>
     </div>
-    <div class="Partners_logos__7QiB4">
-      <div class="AnimatedLogoGrid_grid__3n0at">
-        <style>
-          .partner_card_luxury {
-            border: 1.5px solid rgba(255, 255, 255, 0.12);
-            border-radius: 18px;
-            padding: 1.6rem 1.4rem;
-            background: #0d1527;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            min-height: 100px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            box-sizing: border-box;
-          }
-          .partner_card_luxury:hover {
-            transform: translateY(-4px);
-            border-color: #0284C7;
-            background: #111c33;
-            box-shadow: 0 16px 40px rgba(2, 132, 199, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-          }
-          .partner_card_name {
-            font-family: var(--syne), sans-serif;
-            font-size: clamp(1rem, 1.15vw, 1.15rem);
-            font-weight: 800;
-            color: #ffffff !important;
-            text-align: center;
-            line-height: 1.25;
-            letter-spacing: -0.02em;
-            margin: 0;
-          }
-          .partner_card_tag {
-            font-family: var(--montreal), sans-serif;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #0284C7;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-          }
-        </style>
-        <div class="Partners_logosInner__Aoq5_ reveal-stagger">
-          <div class="Partners_logo__eDI8e partner_card_luxury" data-animation="grid-item">
-            <span class="partner_card_name">Apex Roofing Group</span>
-            <span class="partner_card_tag">Roofing &amp; Trades</span>
-          </div>
-          <div class="Partners_logo__eDI8e partner_card_luxury" data-animation="grid-item">
-            <span class="partner_card_name">Peak Performance Studio</span>
-            <span class="partner_card_tag">Personal Training</span>
-          </div>
-          <div class="Partners_logo__eDI8e partner_card_luxury" data-animation="grid-item">
-            <span class="partner_card_name">Horizon Dental Care</span>
-            <span class="partner_card_tag">Dental Practice</span>
-          </div>
-          <div class="Partners_logo__eDI8e partner_card_luxury" data-animation="grid-item">
-            <span class="partner_card_name">OK Heating &amp; Air</span>
-            <span class="partner_card_tag">HVAC Services</span>
-          </div>
-          <div class="Partners_logo__eDI8e partner_card_luxury" data-animation="grid-item">
-            <span class="partner_card_name">George &amp; Associates</span>
-            <span class="partner_card_tag">Law Firm</span>
-          </div>
-        </div>
+  </div>
+
+  <style>
+    .partners_strip_container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      padding: 1.8rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.015);
+      mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    }
+    .partners_strip_track {
+      display: flex;
+      width: max-content;
+      animation: partnersMarquee 30s linear infinite;
+      will-change: transform;
+    }
+    .partners_strip_track:hover {
+      animation-play-state: paused;
+    }
+    .partners_strip_group {
+      display: flex;
+      align-items: center;
+      gap: 3.2rem;
+      padding-right: 3.2rem;
+      flex-shrink: 0;
+    }
+    .partner_brand_name {
+      font-family: var(--syne), sans-serif;
+      font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: rgba(255, 255, 255, 0.72);
+      white-space: nowrap;
+      transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
+      cursor: default;
+    }
+    .partner_brand_name:hover {
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.65);
+      transform: scale(1.04);
+    }
+    .partner_brand_bullet {
+      font-size: 1.1rem;
+      color: #0284C7;
+      opacity: 0.75;
+      text-shadow: 0 0 10px rgba(2, 132, 199, 0.8);
+      user-select: none;
+    }
+    @keyframes partnersMarquee {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+
+  <!-- Seamless Moving Strip of Brand Names -->
+  <div class="partners_strip_container">
+    <div class="partners_strip_track">
+      <div class="partners_strip_group">
+        <span class="partner_brand_name">Apex Roofing Group</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Aura Med Spa</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">George &amp; Associates</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">OK Heating &amp; Air</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Riverside Family Dental</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Peak Performance Studio</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Parfaire Medical Spa</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">A1 Roofing Dallas</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Garage Fitness</span>
+        <span class="partner_brand_bullet">✦</span>
+      </div>
+      <div class="partners_strip_group" aria-hidden="true">
+        <span class="partner_brand_name">Apex Roofing Group</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Aura Med Spa</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">George &amp; Associates</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">OK Heating &amp; Air</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Riverside Family Dental</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Peak Performance Studio</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Parfaire Medical Spa</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">A1 Roofing Dallas</span>
+        <span class="partner_brand_bullet">✦</span>
+        <span class="partner_brand_name">Garage Fitness</span>
+        <span class="partner_brand_bullet">✦</span>
       </div>
     </div>
   </div>
