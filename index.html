@@ -2374,7 +2374,29 @@
     if (heroCompact) gsap.set(heroCompact, { opacity: 1 });
     if (heroExpanded) gsap.set(heroExpanded, { opacity: 0, pointerEvents: 'none' });
     if (smokeOverlay) gsap.set(smokeOverlay, {});
-    let autoScrolledToSuccess = false;
+
+    let isAutoScrolling = false;
+
+    function triggerAutoScrollToSuccess() {
+      if (isAutoScrolling) return;
+      isAutoScrolling = true;
+      const csStage = document.getElementById('client-success-stage');
+      if (!csStage) return;
+
+      if (typeof lenis !== 'undefined' && lenis) {
+        lenis.scrollTo(csStage, {
+          duration: 1.2,
+          immediate: false,
+          lock: false,
+          onComplete: () => {
+            setTimeout(() => { isAutoScrolling = false; }, 400);
+          }
+        });
+      } else {
+        csStage.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => { isAutoScrolling = false; }, 1400);
+      }
+    }
 
     const choreoTL = gsap.timeline({
       scrollTrigger: {
@@ -2388,15 +2410,11 @@
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          if (self.progress >= 0.90 && self.direction > 0 && !autoScrolledToSuccess) {
-            autoScrolledToSuccess = true;
-            const csStage = document.getElementById('client-success-stage');
-            if (csStage && typeof lenis !== 'undefined' && lenis) {
-              lenis.scrollTo(csStage, { duration: 1.1, lock: false });
-            }
+          if (self.progress >= 0.70 && self.direction > 0 && !isAutoScrolling) {
+            triggerAutoScrollToSuccess();
           }
-          if (self.progress < 0.75) {
-            autoScrolledToSuccess = false;
+          if (self.progress < 0.40) {
+            isAutoScrolling = false;
           }
         },
         onEnter: () => {
@@ -2404,6 +2422,7 @@
         },
         onLeave: () => {
           gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
+          triggerAutoScrollToSuccess();
         },
         onEnterBack: () => {
           gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.3, ease: 'power2.out' });
@@ -2509,7 +2528,8 @@
       opacity: 1,
       duration: 0.2,
       ease: 'power2.inOut'
-    }, 0.90);
+    }, 0.90)
+    .call(triggerAutoScrollToSuccess, null, 0.90);
 
     // Behind the dense smoke: hide circuit background video
     if (processVideo) {
