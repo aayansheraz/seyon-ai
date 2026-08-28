@@ -1074,20 +1074,20 @@
     </div>
   </div>
 </section>
-<section class="Work_work__rSI8c client_success_robot_section" id="client-success-stage" style="background:#090e17;position:relative;width:100%;height:100vh;min-height:100vh;max-height:100vh;overflow:hidden;z-index:20;display:flex;align-items:center;justify-content:center">
+<section class="Work_work__rSI8c client_success_robot_section" id="client-success-stage">
   <style>
     .client_success_robot_section {
-      background: #090e17 !important;
-      position: relative !important;
-      width: 100% !important;
-      height: 100vh !important;
-      min-height: 100vh !important;
-      max-height: 100vh !important;
-      overflow: hidden !important;
-      z-index: 20 !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      box-sizing: border-box !important;
+      background: #090e17;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 20;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .client_robot_video_wrap {
       position: absolute;
@@ -2078,10 +2078,9 @@
   .Work_work__rSI8c {
     background: #090e17 !important;
     background-color: #090e17 !important;
-    position: relative !important;
     z-index: 20 !important;
-    min-height: 100vh !important;
     padding: 0 !important;
+    margin: 0 !important;
   }
   .Work_work__rSI8c h2 span:first-child {
     color: #ffffff !important;
@@ -2678,13 +2677,9 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       init();
-      initCardStacking();
-      initClientSuccessStage();
     });
   } else {
     init();
-    initCardStacking();
-    initClientSuccessStage();
   }
 })();
 </script>
