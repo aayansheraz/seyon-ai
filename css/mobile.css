@@ -145,4 +145,28 @@
   .PrimaryNavigation_buttonContainer__iiKTy .Button_inner__fnyH6:active {
     background-color: #0284C7 !important;
   }
+
+  /* 6. Full-Viewport Mobile Hero Section (Pushes Problem Section Below First Screen) */
+  .hero_section_el {
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    padding-top: 5.5rem !important;
+    padding-bottom: 2.5rem !important;
+    padding-left: 6vw !important;
+    padding-right: 6vw !important;
+    box-sizing: border-box !important;
+  }
+
+  .hero_container {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    flex: 1 !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 2 !important;
+  }
 }
