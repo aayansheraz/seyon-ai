@@ -643,11 +643,19 @@
           flex-shrink: 0;
         }
         @media (max-width: 900px) {
+          .svc-stack-item {
+            bottom: 0 !important;
+            height: 100% !important;
+          }
+          .svc-stack-item[data-card-index="0"] {
+            position: relative !important;
+            height: auto !important;
+          }
           .svc-card {
             flex-direction: column !important;
             gap: 1.2rem !important;
-            height: auto !important;
-            min-height: auto !important;
+            height: 100% !important;
+            min-height: 100% !important;
             max-height: none !important;
             padding: 2rem 1.8rem !important;
           }
@@ -665,8 +673,8 @@
           .svc-card {
             padding: 1.4rem 1.25rem !important;
             border-radius: 1.5rem !important;
-            height: auto !important;
-            min-height: auto !important;
+            height: 100% !important;
+            min-height: 100% !important;
             max-height: none !important;
             gap: 1rem !important;
           }
@@ -2839,10 +2847,18 @@
     }
 
     /* 9. Services Stacking Cards on Mobile: Full unclipped media for all cards */
+    .svc-stack-item {
+      bottom: 0 !important;
+      height: 100% !important;
+    }
+    .svc-stack-item[data-card-index="0"] {
+      position: relative !important;
+      height: auto !important;
+    }
     .svc-card {
       flex-direction: column !important;
-      height: auto !important;
-      min-height: auto !important;
+      height: 100% !important;
+      min-height: 100% !important;
       max-height: none !important;
       padding: 1.4rem 1.25rem !important;
       gap: 1rem !important;
@@ -3163,16 +3179,19 @@
       }
     });
 
-    // STEP 1: Card 2 glides up
+    // STEP 1: Card 2 glides up and fully covers Card 1
     tl.to(cards[1], { y: 0, ease: 'power2.inOut', duration: 1.2 })
+      .to(cards[0], { opacity: 0, ease: 'power2.inOut', duration: 0.35 }, '-=0.35')
       .to({}, { duration: 0.5 });
 
-    // STEP 2: Card 3 glides up
+    // STEP 2: Card 3 glides up and fully covers Card 2
     tl.to(cards[2], { y: 0, ease: 'power2.inOut', duration: 1.2 })
+      .to(cards[1], { opacity: 0, ease: 'power2.inOut', duration: 0.35 }, '-=0.35')
       .to({}, { duration: 0.5 });
 
-    // STEP 3: Card 4 glides up
+    // STEP 3: Card 4 glides up and fully covers Card 3
     tl.to(cards[3], { y: 0, ease: 'power2.inOut', duration: 1.2 })
+      .to(cards[2], { opacity: 0, ease: 'power2.inOut', duration: 0.35 }, '-=0.35')
       .to({}, { duration: 0.6 });
   }
 

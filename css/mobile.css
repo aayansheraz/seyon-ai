@@ -249,10 +249,18 @@
   }
 
   /* 9. Services Stacking Cards on Mobile: Full unclipped media for all cards */
+  .svc-stack-item {
+    bottom: 0 !important;
+    height: 100% !important;
+  }
+  .svc-stack-item[data-card-index="0"] {
+    position: relative !important;
+    height: auto !important;
+  }
   .svc-card {
     flex-direction: column !important;
-    height: auto !important;
-    min-height: auto !important;
+    height: 100% !important;
+    min-height: 100% !important;
     max-height: none !important;
     padding: 1.4rem 1.25rem !important;
     gap: 1rem !important;
@@ -293,7 +301,8 @@
 
   .svc-outer-wrap {
     padding: 0 4% !important;
-  
+  }
+
   /* 10. Choreography Process Section on Mobile */
   .choreo_card {
     width: calc(100vw - 2.5rem) !important;
@@ -375,6 +384,7 @@
     padding: 2px 6px !important;
   }
 }
+
 
 
 
