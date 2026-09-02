@@ -247,5 +247,51 @@
     line-height: 1.4 !important;
     margin: 0 !important;
   }
-}
 
+  /* 9. Services Stacking Cards on Mobile: Full unclipped media for all cards */
+  .svc-card {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    padding: 1.4rem 1.25rem !important;
+    gap: 1rem !important;
+    overflow: visible !important;
+  }
+
+  .svc-media {
+    width: 100% !important;
+    height: 185px !important;
+    aspect-ratio: 16/9 !important;
+    border-radius: 1.25rem !important;
+    overflow: hidden !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+  }
+
+  .ServicesPanel_panelHeading__5Sy4s {
+    font-size: 1.55rem !important;
+    line-height: 1.15 !important;
+    margin: 0 0 0.8rem !important;
+  }
+
+  .ServicesPanel_tags__6NQOl {
+    gap: 0.4rem !important;
+    margin-bottom: 0.8rem !important;
+  }
+
+  .ServicesPanel_tag__JYwRk {
+    font-size: 0.72rem !important;
+    padding: 3px 10px !important;
+  }
+
+  .ServicesPanel_panelMainText__4F0TZ {
+    font-size: 0.9rem !important;
+    line-height: 1.38 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .svc-outer-wrap {
+    padding: 0 4% !important;
+  }
+}

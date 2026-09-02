@@ -645,22 +645,54 @@
         @media (max-width: 900px) {
           .svc-card {
             flex-direction: column !important;
-            gap: 2rem !important;
-            min-height: unset !important;
-            padding: 2.5rem !important;
+            gap: 1.2rem !important;
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            padding: 2rem 1.8rem !important;
           }
           .svc-media {
             width: 100% !important;
+            height: 200px !important;
             aspect-ratio: 16/9 !important;
+            border-radius: 1.25rem !important;
+            overflow: hidden !important;
+            position: relative !important;
+            flex-shrink: 0 !important;
           }
         }
         @media (max-width: 600px) {
           .svc-card {
-            padding: 1.75rem !important;
+            padding: 1.4rem 1.25rem !important;
             border-radius: 1.5rem !important;
+            height: auto !important;
+            min-height: auto !important;
+            max-height: none !important;
+            gap: 1rem !important;
+          }
+          .svc-media {
+            height: 180px !important;
+          }
+          .ServicesPanel_panelHeading__5Sy4s {
+            font-size: 1.6rem !important;
+            line-height: 1.15 !important;
+            margin: 0 0 0.8rem !important;
+          }
+          .ServicesPanel_tags__6NQOl {
+            gap: 0.4rem !important;
+            margin-bottom: 0.8rem !important;
+          }
+          .ServicesPanel_tag__JYwRk {
+            font-size: 0.72rem !important;
+            padding: 3px 10px !important;
+          }
+          .ServicesPanel_panelMainText__4F0TZ {
+            font-size: 0.9rem !important;
+            line-height: 1.38 !important;
+            margin-bottom: 1rem !important;
           }
           .svc-outer-wrap {
-            padding: 0 5%;
+            padding: 0 4%;
           }
         }
       </style><div class="container reveal-fade-in" style="margin-bottom:2.5rem"><h2 class="ServicesHeading_heading__w6gAZ" style="grid-column:1 / -1;color:#000000"><span><div class="LargeHeading_headingOuter__i9qcd"><span class="ServicesHeading_heading__w6gAZ" style="color:#000000">STOP CHASING<br/>LEADS MANUALLY.</span> <span class="ServicesHeading_heading__w6gAZ ServicesHeading_bottom__K8yXu" style="color:#000000">AUTOMATE YOUR<br/>GROWTH.</span></div></span><div class="AnimatedArrow_animatedArrow__Q4v7Q"><div class="AnimatedArrow_innerArrow__6mwTB"><svg class="ServicesHeading_arrow__L7E0F" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111.42 110.66"><polygon points="13.65 102.66 109.53 6.67 103.87 1.02 8 97 8 0 0 0 0 110.66 111.42 110.66 111.42 102.66 13.65 102.66" fill="#000000"></polygon></svg></div></div></h2></div><div class="ServicesPanels_panels__NpKkK"><div class="svc-outer-wrap">
@@ -2746,6 +2778,47 @@
       font-size: 0.88rem !important;
       line-height: 1.4 !important;
       margin: 0 !important;
+    }
+
+    /* 9. Services Stacking Cards on Mobile: Full unclipped media for all cards */
+    .svc-card {
+      flex-direction: column !important;
+      height: auto !important;
+      min-height: auto !important;
+      max-height: none !important;
+      padding: 1.4rem 1.25rem !important;
+      gap: 1rem !important;
+      overflow: visible !important;
+    }
+    .svc-media {
+      width: 100% !important;
+      height: 185px !important;
+      aspect-ratio: 16/9 !important;
+      border-radius: 1.25rem !important;
+      overflow: hidden !important;
+      position: relative !important;
+      flex-shrink: 0 !important;
+    }
+    .ServicesPanel_panelHeading__5Sy4s {
+      font-size: 1.55rem !important;
+      line-height: 1.15 !important;
+      margin: 0 0 0.8rem !important;
+    }
+    .ServicesPanel_tags__6NQOl {
+      gap: 0.4rem !important;
+      margin-bottom: 0.8rem !important;
+    }
+    .ServicesPanel_tag__JYwRk {
+      font-size: 0.72rem !important;
+      padding: 3px 10px !important;
+    }
+    .ServicesPanel_panelMainText__4F0TZ {
+      font-size: 0.9rem !important;
+      line-height: 1.38 !important;
+      margin-bottom: 1rem !important;
+    }
+    .svc-outer-wrap {
+      padding: 0 4% !important;
     }
   }
 
