@@ -3049,14 +3049,17 @@
     let lenis;
     try {
       lenis = new Lenis({
-        duration: 1.25,
+        duration: 1.3,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
-        gestureDirection: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
         smooth: true,
-        mouseMultiplier: 0.95,
-        smoothTouch: false,
-        touchMultiplier: 1.5,
+        syncTouch: true,
+        syncTouchLerp: 0.075,
+        touchInertiaMultiplier: 25,
+        touchMultiplier: 0.9,
+        wheelMultiplier: 0.95,
       });
 
       if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
