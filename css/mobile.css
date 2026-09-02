@@ -70,7 +70,7 @@
     align-items: center !important;
     justify-content: center !important;
     gap: 5px !important;
-    z-index: 1002 !important;
+    z-index: 3000 !important;
     cursor: pointer !important;
     pointer-events: all !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
@@ -84,10 +84,26 @@
     border-radius: 2px !important;
   }
 
-  /* When mobile drawer is open, keep hamburger icon centered */
+  /* When mobile drawer is open, float ON TOP of drawer as a high-contrast white cross button */
   .PrimaryNavigation_page__DgiUM.PrimaryNavigation_active__gdInn .PrimaryNavigation_icon__qAQCe {
-    background: #000000 !important;
-    border: none !important;
+    z-index: 3000 !important;
+    background: #ffffff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    pointer-events: all !important;
+  }
+
+  .PrimaryNavigation_page__DgiUM.PrimaryNavigation_active__gdInn .PrimaryNavigation_line__eUBQ0 {
+    background-color: #000000 !important;
+    width: 16px !important;
+  }
+
+  .PrimaryNavigation_page__DgiUM.PrimaryNavigation_active__gdInn .PrimaryNavigation_line__eUBQ0:first-child {
+    transform: translateY(3.5px) rotate(45deg) !important;
+  }
+
+  .PrimaryNavigation_page__DgiUM.PrimaryNavigation_active__gdInn .PrimaryNavigation_line__eUBQ0:last-child {
+    transform: translateY(-3.5px) rotate(-45deg) !important;
   }
 
   /* 5. Prominent "Hire us" Button inside the Hamburger Drawer */
