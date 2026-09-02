@@ -3166,14 +3166,15 @@
       }
     });
 
+    const isMobileStack = window.innerWidth <= 900;
     const tl = gsap.timeline({
       scrollTrigger: {
         id: 'servicesPinStack',
         trigger: wrapper,
         start: 'center center',
-        end: '+=2800',
+        end: isMobileStack ? '+=3800' : '+=2800',
         pin: true,
-        scrub: 0.8,
+        scrub: isMobileStack ? 1.2 : 0.8,
         anticipatePin: 1,
         invalidateOnRefresh: true
       }
@@ -3306,10 +3307,10 @@
         id: 'choreoMaster',
         trigger: section,
         start: 'top top',
-        end: '+=3800',
+        end: isMobile ? '+=5600' : '+=3800',
         pin: true,
         pinSpacing: true,
-        scrub: 0.5,
+        scrub: isMobile ? 1.2 : 0.5,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
@@ -3609,10 +3610,10 @@
         id: 'clientSuccessMaster',
         trigger: stage,
         start: 'top top',
-        end: '+=4200',
+        end: isMobile ? '+=5200' : '+=4200',
         pin: true,
         pinSpacing: true,
-        scrub: 0.8,
+        scrub: isMobile ? 1.2 : 0.8,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onEnter: () => {
@@ -4041,14 +4042,14 @@
         }
       });
 
-      // 2. Timeline for 1-by-1 Card Swap in the single left slot
+      var isMobileApp = window.innerWidth <= 900;
       var approachTL = gsap.timeline({
         scrollTrigger: {
           id: 'approachCardsTimeline',
           trigger: approachSection,
           start: 'top top',
-          end: '+=1900',
-          scrub: 0.7
+          end: isMobileApp ? '+=2800' : '+=1900',
+          scrub: isMobileApp ? 1.2 : 0.7
         }
       });
 
