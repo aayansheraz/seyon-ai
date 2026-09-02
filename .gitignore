@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Local Development Scripts
+local-server.js
+server.js
+test-live-vercel.js
+*.log
+.system_generated/
+_backup_pre_theme_swap/
