@@ -46,12 +46,16 @@
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
   }
 
-  /* 3. Hide Phone and "Hire us" from the top navbar on mobile */
+  /* 3. Hide Phone, "Hire us" from top navbar, and Floating Start Button on mobile */
   .header_phone_link {
     display: none !important;
   }
 
   .Header_header__KwdYD .Header_button__yG4_K {
+    display: none !important;
+  }
+
+  .FloatingStartButton_linkContainer__eZz7z {
     display: none !important;
   }
 
@@ -146,7 +150,7 @@
     background-color: #0284C7 !important;
   }
 
-  /* 6. Full-Viewport Mobile Hero Section (Pushes Problem Section Below First Screen) */
+  /* 6. Full-Viewport Mobile Hero Section */
   .hero_section_el {
     min-height: 100vh !important;
     min-height: 100dvh !important;
@@ -168,5 +172,28 @@
     width: 100% !important;
     position: relative !important;
     z-index: 2 !important;
+  }
+
+  /* 7. Soft Ambient Studio Backlight behind Hero Headline */
+  .hero_text_align_wrapper {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+
+  .hero_text_align_wrapper::before {
+    content: "" !important;
+    position: absolute !important;
+    top: -15% !important;
+    left: -20% !important;
+    width: 140% !important;
+    height: 130% !important;
+    background: radial-gradient(ellipse at 40% 45%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.65) 45%, rgba(255, 255, 255, 0) 75%) !important;
+    pointer-events: none !important;
+    z-index: -1 !important;
+    filter: blur(12px) !important;
+  }
+
+  .hero_heading_el {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.95), 0 0 40px rgba(255, 255, 255, 0.8) !important;
   }
 }
