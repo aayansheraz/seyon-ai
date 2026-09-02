@@ -4,11 +4,120 @@
    Desktop view (screens > 768px) is 100% physically isolated from this file.
    ========================================================================== */
 
-/* Mobile Base Reset & Smooth Touch Scrolling */
 @media (max-width: 768px) {
+  /* 1. Mobile Base Reset */
   html, body {
     overflow-x: hidden !important;
     width: 100% !important;
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* 2. Top Mobile Navbar Oval Pill */
+  .Header_header__KwdYD {
+    position: fixed !important;
+    top: 0.85rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 2rem) !important;
+    max-width: calc(100% - 2rem) !important;
+    height: 54px !important;
+    background: rgba(255, 255, 255, 0.96) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 50px !important;
+    padding: 0.35rem 0.6rem 0.35rem 0.6rem !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important;
+    z-index: 500 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
+    margin-top: 0 !important;
+  }
+
+  .Header_header__KwdYD.scrolled {
+    margin-top: 0 !important;
+    top: 0.85rem !important;
+    width: calc(100% - 2rem) !important;
+    max-width: calc(100% - 2rem) !important;
+    height: 54px !important;
+    padding: 0.35rem 0.6rem 0.35rem 0.6rem !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* 3. Hide Phone and "Hire us" from the top navbar on mobile */
+  .header_phone_link {
+    display: none !important;
+  }
+
+  .Header_header__KwdYD .Header_button__yG4_K {
+    display: none !important;
+  }
+
+  /* 4. Position Hamburger Icon cleanly INSIDE the right curve of the navbar oval */
+  .PrimaryNavigation_icon__qAQCe {
+    position: fixed !important;
+    top: calc(0.85rem + 9px) !important;
+    right: calc(1rem + 9px) !important;
+    width: 36px !important;
+    height: 36px !important;
+    background: #000000 !important;
+    border-radius: 50% !important;
+    border: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    z-index: 1002 !important;
+    cursor: pointer !important;
+    pointer-events: all !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    transition: transform 0.2s ease, background-color 0.2s ease !important;
+  }
+
+  .PrimaryNavigation_line__eUBQ0 {
+    width: 16px !important;
+    height: 2px !important;
+    background-color: #ffffff !important;
+    border-radius: 2px !important;
+  }
+
+  /* When mobile drawer is open, keep hamburger icon centered */
+  .PrimaryNavigation_page__DgiUM.PrimaryNavigation_active__gdInn .PrimaryNavigation_icon__qAQCe {
+    background: #000000 !important;
+    border: none !important;
+  }
+
+  /* 5. Prominent "Hire us" Button inside the Hamburger Drawer */
+  .PrimaryNavigation_buttonContainer__iiKTy {
+    width: 100% !important;
+    margin-top: 1.5rem !important;
+  }
+
+  .PrimaryNavigation_buttonContainer__iiKTy .Button_button__JJiqJ {
+    width: 100% !important;
+    display: block !important;
+  }
+
+  .PrimaryNavigation_buttonContainer__iiKTy .Button_inner__fnyH6 {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    padding: 0.85rem 1.8rem !important;
+    border-radius: 50px !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .PrimaryNavigation_buttonContainer__iiKTy .Button_inner__fnyH6:hover,
+  .PrimaryNavigation_buttonContainer__iiKTy .Button_inner__fnyH6:active {
+    background-color: #0284C7 !important;
   }
 }
