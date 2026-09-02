@@ -1556,12 +1556,28 @@
 
     @media (max-width: 900px) {
       .client_robot_card {
-        width: 88vw !important;
-        left: 6vw !important;
+        width: 62vw !important;
+        max-width: 255px !important;
+        height: 165px !important;
+        left: 5vw !important;
         right: auto !important;
+        border-radius: 1.25rem !important;
       }
-      .robot_card_pos_top { top: 16vh; }
-      .robot_card_pos_bottom { top: 16vh; }
+      .robot_card_pos_top { top: 14vh !important; }
+      .robot_card_pos_bottom { top: 14vh !important; }
+      .client_robot_card_header {
+        top: 8px !important;
+        left: 8px !important;
+        right: 8px !important;
+        padding: 5px 10px !important;
+      }
+      .client_robot_card_title {
+        font-size: 0.78rem !important;
+      }
+      .client_robot_card_year {
+        font-size: 0.65rem !important;
+        padding: 2px 6px !important;
+      }
     }
   </style>
 
@@ -3509,7 +3525,7 @@
           }
         }
         if (img && img.complete && img.naturalWidth > 0) {
-          drawImageProp(ctx, img, window.innerWidth <= 900 ? 0.65 : 0.75, 0.5);
+          drawImageProp(ctx, img, window.innerWidth <= 900 ? 0.78 : 0.75, 0.5);
         }
       }
 
