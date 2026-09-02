@@ -3316,12 +3316,21 @@
           if (self.direction < 0) {
             isAutoScrolling = false;
           }
+          if (!isMobile) {
+            if (self.progress >= 0.82 && self.direction > 0 && !isAutoScrolling) {
+              triggerAutoScrollToSuccess();
+            }
+            if (self.progress < 0.4) {
+              isAutoScrolling = false;
+            }
+          }
         },
         onEnter: () => {
           gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.2, ease: 'power2.out' });
         },
         onLeave: () => {
           gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.2, ease: 'power2.out' });
+          if (!isMobile) triggerAutoScrollToSuccess();
         },
         onEnterBack: () => {
           isAutoScrolling = false;
@@ -3454,6 +3463,9 @@
       ease: 'power2.inOut'
     }, 0.79);
 
+    if (!isMobile) {
+      choreoTL.call(triggerAutoScrollToSuccess, null, 0.79);
+    }
 
     // Behind the dense smoke: hide circuit background video
     if (processVideo) {
