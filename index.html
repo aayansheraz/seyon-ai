@@ -3313,11 +3313,16 @@
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: (self) => {
-          if (self.progress >= 0.65 && self.direction > 0 && !isAutoScrolling) {
-            triggerAutoScrollToSuccess();
-          }
-          if (self.progress < 0.35) {
+          if (self.direction < 0) {
             isAutoScrolling = false;
+          }
+          if (!isMobile) {
+            if (self.progress >= 0.82 && self.direction > 0 && !isAutoScrolling) {
+              triggerAutoScrollToSuccess();
+            }
+            if (self.progress < 0.4) {
+              isAutoScrolling = false;
+            }
           }
         },
         onEnter: () => {
@@ -3325,12 +3330,14 @@
         },
         onLeave: () => {
           gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.2, ease: 'power2.out' });
-          triggerAutoScrollToSuccess();
+          if (!isMobile) triggerAutoScrollToSuccess();
         },
         onEnterBack: () => {
+          isAutoScrolling = false;
           gsap.to(navElements, { opacity: 0, pointerEvents: 'none', duration: 0.2, ease: 'power2.out' });
         },
         onLeaveBack: () => {
+          isAutoScrolling = false;
           gsap.to(navElements, { opacity: 1, pointerEvents: 'auto', duration: 0.2, ease: 'power2.out' });
         }
       }
@@ -3422,7 +3429,7 @@
     // Hold Step 05 card on screen briefly
     choreoTL.to({}, { duration: 0.1 });
 
-    // PHASE 4: ðŸ’¥ RAPID CARD EXPLOSION & VOLUMETRIC SMOKE BLANKET
+    // PHASE 4: RAPID CARD EXPLOSION & VOLUMETRIC SMOKE BLANKET
     choreoTL.to(smokeOverlay, { opacity: 1, duration: 0.04 }, 0.76)
     .to(shockwave, {
       scale: 4,
@@ -3437,6 +3444,12 @@
       duration: 0.15,
       ease: 'power3.in'
     }, 0.76)
+    .to(choreoHeader, {
+      opacity: 0,
+      y: -25,
+      duration: 0.14,
+      ease: 'power2.in'
+    }, 0.76)
     .to(smokePuffs, {
       scale: 1.8,
       opacity: 0.98,
@@ -3448,8 +3461,11 @@
       opacity: 1,
       duration: 0.12,
       ease: 'power2.inOut'
-    }, 0.79)
-    .call(triggerAutoScrollToSuccess, null, 0.79);
+    }, 0.79);
+
+    if (!isMobile) {
+      choreoTL.call(triggerAutoScrollToSuccess, null, 0.79);
+    }
 
     // Behind the dense smoke: hide circuit background video
     if (processVideo) {
