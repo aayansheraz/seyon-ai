@@ -1093,11 +1093,36 @@
 
     @media (max-width: 900px) {
       .choreo_card {
-        width: 85vw !important;
-        height: 22vh !important;
-        min-width: unset !important;
-        max-width: none !important;
-        padding: 1.2rem 1.4rem !important;
+        width: calc(100vw - 2.5rem) !important;
+        max-width: 440px !important;
+        height: auto !important;
+        min-height: 190px !important;
+        max-height: 220px !important;
+        padding: 1.25rem 1.35rem !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 1rem !important;
+        border-radius: 1.6rem !important;
+      }
+      .choreo_card_thumb {
+        width: 85px !important;
+        height: 105px !important;
+        max-height: 105px !important;
+        border-radius: 1rem !important;
+        flex-shrink: 0 !important;
+      }
+      .choreo_card_title {
+        font-size: 1.2rem !important;
+        line-height: 1.2 !important;
+        margin: 0 0 0.35rem 0 !important;
+      }
+      .choreo_card_desc {
+        font-size: 0.84rem !important;
+        line-height: 1.35 !important;
+        -webkit-line-clamp: 3 !important;
       }
       .choreo_hero_expanded {
         flex-direction: column !important;
@@ -3169,19 +3194,33 @@
     const yBottom = isMobile ? '22vh' : '24vh';
     const yCenter = isMobile ? '10vh' : '10vh';
 
-    gsap.set(cardTL, { x: xLeft, y: yTop, opacity: 1, scale: 1 });
-    gsap.set(cardBR, { x: xRight, y: yBottom, opacity: 1, scale: 1 });
-    gsap.set(cardBL, { x: xLeft, y: yBottom, opacity: 1, scale: 1 });
-    gsap.set(cardTR, { x: xRight, y: yTop, opacity: 1, scale: 1 });
-    gsap.set(cardHero, {
-      x: '0vw',
-      y: yCenter,
-      opacity: 0,
-      scale: 0.85,
-      width: isMobile ? '85vw' : '36vw',
-      height: isMobile ? '22vh' : '23vh',
-      filter: 'blur(0px)'
-    });
+    if (isMobile) {
+      gsap.set(cardTL, { x: '0vw', y: yCenter, opacity: 1, scale: 1, pointerEvents: 'auto' });
+      gsap.set([cardBR, cardBL, cardTR], { x: '115vw', y: yCenter, opacity: 0, scale: 0.95, pointerEvents: 'none' });
+      gsap.set(cardHero, {
+        x: '115vw',
+        y: yCenter,
+        opacity: 0,
+        scale: 0.9,
+        width: 'calc(100vw - 2.5rem)',
+        maxWidth: '440px',
+        filter: 'blur(0px)'
+      });
+    } else {
+      gsap.set(cardTL, { x: xLeft, y: yTop, opacity: 1, scale: 1 });
+      gsap.set(cardBR, { x: xRight, y: yBottom, opacity: 1, scale: 1 });
+      gsap.set(cardBL, { x: xLeft, y: yBottom, opacity: 1, scale: 1 });
+      gsap.set(cardTR, { x: xRight, y: yTop, opacity: 1, scale: 1 });
+      gsap.set(cardHero, {
+        x: '0vw',
+        y: yCenter,
+        opacity: 0,
+        scale: 0.85,
+        width: '36vw',
+        height: '23vh',
+        filter: 'blur(0px)'
+      });
+    }
     if (heroCompact) gsap.set(heroCompact, { opacity: 1 });
     if (heroExpanded) gsap.set(heroExpanded, { opacity: 0, pointerEvents: 'none' });
     if (smokeOverlay) gsap.set(smokeOverlay, {});
@@ -3244,68 +3283,100 @@
       }
     });
 
-    // PHASE 1: Diagonal Movement
-    choreoTL.to(cardTL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.25 }, 0)
-            .to(cardBR, { x: xRight, y: yTop, ease: 'power2.inOut', duration: 0.25 }, 0)
-            .to(cardBL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.25 }, 0)
-            .to(cardTR, { x: xRight, y: yTop, ease: 'power2.inOut', duration: 0.25 }, 0);
+    if (isMobile) {
+      // Mobile Horizontal 1-by-1 Apple-Style Glide Sequence
+      // Step 01 -> Step 02
+      choreoTL.to(cardTL, { x: '-115vw', opacity: 0, scale: 0.92, ease: 'power2.inOut', duration: 0.12 }, 0.05)
+              .to(cardBR, { x: '0vw', opacity: 1, scale: 1, pointerEvents: 'auto', ease: 'power2.inOut', duration: 0.12 }, 0.08);
 
-    // PHASE 2: Stack Alignment to Center
-    choreoTL.to([cardTL, cardBR, cardBL, cardTR], {
-      x: '0vw',
-      y: yCenter,
-      ease: 'power2.inOut',
-      duration: 0.25
-    }, 0.28)
-    .to(cardHero, {
-      opacity: 1,
-      scale: 1,
-      ease: 'power2.out',
-      duration: 0.22
-    }, 0.36);
+      // Step 02 -> Step 03
+      choreoTL.to(cardBR, { x: '-115vw', opacity: 0, scale: 0.92, pointerEvents: 'none', ease: 'power2.inOut', duration: 0.12 }, 0.20)
+              .to(cardBL, { x: '0vw', opacity: 1, scale: 1, pointerEvents: 'auto', ease: 'power2.inOut', duration: 0.12 }, 0.23);
 
-    // PHASE 3: Hero Card 5 Expands to Full Scale
-    const heroTargetWidth = isMobile ? '92vw' : '88vw';
-    const heroTargetHeight = isMobile ? '80vh' : '75vh';
+      // Step 03 -> Step 04
+      choreoTL.to(cardBL, { x: '-115vw', opacity: 0, scale: 0.92, pointerEvents: 'none', ease: 'power2.inOut', duration: 0.12 }, 0.35)
+              .to(cardTR, { x: '0vw', opacity: 1, scale: 1, pointerEvents: 'auto', ease: 'power2.inOut', duration: 0.12 }, 0.38);
 
-    choreoTL.to([cardTL, cardBR, cardBL, cardTR], {
-      opacity: 0,
-      scale: 0.8,
-      filter: 'blur(8px)',
-      ease: 'power2.inOut',
-      duration: 0.2
-    }, 0.52)
-    .to(choreoHeader, {
-      opacity: 0,
-      y: -30,
-      ease: 'power2.inOut',
-      duration: 0.18
-    }, 0.52)
-    .to(cardHero, {
-      x: '0vw',
-      y: '0vh',
-      width: heroTargetWidth,
-      height: heroTargetHeight,
-      maxWidth: '1350px',
-      maxHeight: '750px',
-      borderRadius: '2.5rem',
-      boxShadow: '0 35px 100px rgba(0,0,0,0.5)',
-      ease: 'power2.inOut',
-      duration: 0.24
-    }, 0.52);
+      // Step 04 -> Step 05 (Launch & Live Monitoring)
+      choreoTL.to(cardTR, { x: '-115vw', opacity: 0, scale: 0.92, pointerEvents: 'none', ease: 'power2.inOut', duration: 0.12 }, 0.50)
+              .to(cardHero, { x: '0vw', y: '10vh', opacity: 1, scale: 1, ease: 'power2.inOut', duration: 0.12 }, 0.52)
+              .to(choreoHeader, { opacity: 0, y: -20, ease: 'power2.inOut', duration: 0.1 }, 0.54)
+              .to(cardHero, {
+                x: '0vw',
+                y: '0vh',
+                width: '92vw',
+                height: '80vh',
+                maxWidth: '1350px',
+                maxHeight: '750px',
+                borderRadius: '2rem',
+                boxShadow: '0 25px 80px rgba(0,0,0,0.5)',
+                ease: 'power2.inOut',
+                duration: 0.14
+              }, 0.58);
 
-    if (heroCompact && heroExpanded) {
-      choreoTL.to(heroCompact, {
-        opacity: 0,
+      if (heroCompact && heroExpanded) {
+        choreoTL.to(heroCompact, { opacity: 0, ease: 'power2.inOut', duration: 0.08 }, 0.60)
+                .to(heroExpanded, { opacity: 1, pointerEvents: 'auto', ease: 'power2.inOut', duration: 0.12 }, 0.64);
+      }
+    } else {
+      // Desktop Original 4-Corner Diagonal Movement & Merge (100% UNTOUCHED):
+      choreoTL.to(cardTL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.25 }, 0)
+              .to(cardBR, { x: xRight, y: yTop, ease: 'power2.inOut', duration: 0.25 }, 0)
+              .to(cardBL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.25 }, 0)
+              .to(cardTR, { x: xRight, y: yTop, ease: 'power2.inOut', duration: 0.25 }, 0);
+
+      choreoTL.to([cardTL, cardBR, cardBL, cardTR], {
+        x: '0vw',
+        y: yCenter,
         ease: 'power2.inOut',
-        duration: 0.12
-      }, 0.56)
-      .to(heroExpanded, {
+        duration: 0.25
+      }, 0.28)
+      .to(cardHero, {
         opacity: 1,
-        pointerEvents: 'auto',
+        scale: 1,
+        ease: 'power2.out',
+        duration: 0.22
+      }, 0.36);
+
+      choreoTL.to([cardTL, cardBR, cardBL, cardTR], {
+        opacity: 0,
+        scale: 0.8,
+        filter: 'blur(8px)',
+        ease: 'power2.inOut',
+        duration: 0.2
+      }, 0.52)
+      .to(choreoHeader, {
+        opacity: 0,
+        y: -30,
         ease: 'power2.inOut',
         duration: 0.18
-      }, 0.62);
+      }, 0.52)
+      .to(cardHero, {
+        x: '0vw',
+        y: '0vh',
+        width: '88vw',
+        height: '75vh',
+        maxWidth: '1350px',
+        maxHeight: '750px',
+        borderRadius: '2.5rem',
+        boxShadow: '0 35px 100px rgba(0,0,0,0.5)',
+        ease: 'power2.inOut',
+        duration: 0.24
+      }, 0.52);
+
+      if (heroCompact && heroExpanded) {
+        choreoTL.to(heroCompact, {
+          opacity: 0,
+          ease: 'power2.inOut',
+          duration: 0.12
+        }, 0.56)
+        .to(heroExpanded, {
+          opacity: 1,
+          pointerEvents: 'auto',
+          ease: 'power2.inOut',
+          duration: 0.18
+        }, 0.62);
+      }
     }
 
     const processVideo = document.querySelector('.choreo_video_bg_wrap');

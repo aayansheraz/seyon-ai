@@ -293,5 +293,38 @@
 
   .svc-outer-wrap {
     padding: 0 4% !important;
+  
+  /* 10. Choreography Process Section on Mobile */
+  .choreo_card {
+    width: calc(100vw - 2.5rem) !important;
+    max-width: 440px !important;
+    height: auto !important;
+    min-height: 190px !important;
+    max-height: 220px !important;
+    padding: 1.25rem 1.35rem !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+    border-radius: 1.6rem !important;
+  }
+  .choreo_card_thumb {
+    width: 85px !important;
+    height: 105px !important;
+    max-height: 105px !important;
+    border-radius: 1rem !important;
+    flex-shrink: 0 !important;
+  }
+  .choreo_card_title {
+    font-size: 1.2rem !important;
+    line-height: 1.2 !important;
+    margin: 0 0 0.35rem 0 !important;
+  }
+  .choreo_card_desc {
+    font-size: 0.84rem !important;
+    line-height: 1.35 !important;
+    -webkit-line-clamp: 3 !important;
   }
 }
