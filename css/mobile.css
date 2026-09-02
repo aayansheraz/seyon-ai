@@ -1,0 +1,14 @@
+﻿/* ==========================================================================
+   SEYON AI - DEDICATED MOBILE RESPONSIVE STYLESHEET
+   Applies ONLY when screen width is 768px or smaller (smartphones & tablets).
+   Desktop view (screens > 768px) is 100% physically isolated from this file.
+   ========================================================================== */
+
+/* Mobile Base Reset & Smooth Touch Scrolling */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    -webkit-overflow-scrolling: touch;
+  }
+}
