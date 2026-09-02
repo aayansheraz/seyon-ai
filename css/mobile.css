@@ -310,6 +310,29 @@
     gap: 1rem !important;
     border-radius: 1.6rem !important;
   }
+  .choreo_card_hero {
+    padding: 1.25rem 1.35rem !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .choreo_hero_compact {
+    position: relative !important;
+    inset: auto !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+    padding: 0 !important;
+    opacity: 1 !important;
+  }
+  .choreo_hero_expanded {
+    display: none !important;
+  }
   .choreo_card_thumb {
     width: 85px !important;
     height: 105px !important;

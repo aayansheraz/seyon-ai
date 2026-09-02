@@ -1107,6 +1107,29 @@
         gap: 1rem !important;
         border-radius: 1.6rem !important;
       }
+      .choreo_card_hero {
+        padding: 1.25rem 1.35rem !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+      }
+      .choreo_hero_compact {
+        position: relative !important;
+        inset: auto !important;
+        width: 100% !important;
+        height: 100% !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 1rem !important;
+        padding: 0 !important;
+        opacity: 1 !important;
+      }
+      .choreo_hero_expanded {
+        display: none !important;
+      }
       .choreo_card_thumb {
         width: 85px !important;
         height: 105px !important;
@@ -1123,12 +1146,6 @@
         font-size: 0.84rem !important;
         line-height: 1.35 !important;
         -webkit-line-clamp: 3 !important;
-      }
-      .choreo_hero_expanded {
-        flex-direction: column !important;
-        padding: 2rem 1.5rem !important;
-        gap: 1.5rem !important;
-        overflow-y: auto !important;
       }
       .hero_media_col {
         display: none !important;
@@ -1240,7 +1257,7 @@
         <div class="hero_content_col">
           <div class="hero_badge_row">
             <span class="hero_pill_step">STEP 05 / FINAL</span>
-            <span class="hero_pill_live">â— Live Autonomous AI</span>
+            <span class="hero_pill_live">&#9679; Live Autonomous AI</span>
           </div>
           <h3 class="hero_main_title">Launch, Live Monitoring &amp; Autonomous Scaling.</h3>
           <p class="hero_main_desc">We launch your full AI revenue engine live, monitor real-time call performance, and continuously optimize conversions on complete autopilot.</p>
@@ -3297,27 +3314,12 @@
       choreoTL.to(cardBL, { x: '-115vw', opacity: 0, scale: 0.92, pointerEvents: 'none', ease: 'power2.inOut', duration: 0.12 }, 0.35)
               .to(cardTR, { x: '0vw', opacity: 1, scale: 1, pointerEvents: 'auto', ease: 'power2.inOut', duration: 0.12 }, 0.38);
 
-      // Step 04 -> Step 05 (Launch & Live Monitoring)
+      // Step 04 -> Step 05 (Launch & Scaling - COMES JUST LIKE CARD 4, HEADING DOES NOT FADE)
       choreoTL.to(cardTR, { x: '-115vw', opacity: 0, scale: 0.92, pointerEvents: 'none', ease: 'power2.inOut', duration: 0.12 }, 0.50)
-              .to(cardHero, { x: '0vw', y: '10vh', opacity: 1, scale: 1, ease: 'power2.inOut', duration: 0.12 }, 0.52)
-              .to(choreoHeader, { opacity: 0, y: -20, ease: 'power2.inOut', duration: 0.1 }, 0.54)
-              .to(cardHero, {
-                x: '0vw',
-                y: '0vh',
-                width: '92vw',
-                height: '80vh',
-                maxWidth: '1350px',
-                maxHeight: '750px',
-                borderRadius: '2rem',
-                boxShadow: '0 25px 80px rgba(0,0,0,0.5)',
-                ease: 'power2.inOut',
-                duration: 0.14
-              }, 0.58);
+              .to(cardHero, { x: '0vw', y: yCenter, opacity: 1, scale: 1, pointerEvents: 'auto', ease: 'power2.inOut', duration: 0.12 }, 0.53);
 
-      if (heroCompact && heroExpanded) {
-        choreoTL.to(heroCompact, { opacity: 0, ease: 'power2.inOut', duration: 0.08 }, 0.60)
-                .to(heroExpanded, { opacity: 1, pointerEvents: 'auto', ease: 'power2.inOut', duration: 0.12 }, 0.64);
-      }
+      // Card 5 settles properly centered in place before exploding in Phase 4
+      choreoTL.to({}, { duration: 0.12 });
     } else {
       // Desktop Original 4-Corner Diagonal Movement & Merge (100% UNTOUCHED):
       choreoTL.to(cardTL, { x: xLeft, y: yBottom, ease: 'power2.inOut', duration: 0.25 }, 0)
